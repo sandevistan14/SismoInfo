@@ -4,8 +4,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
-    <artifactId>my-project</artifactId>
+    <groupId>G4_D</groupId>
+    <artifactId>S2.01 Développement d’une application</artifactId>
     <version>1.0.0</version>
 
     <dependencies>
@@ -15,5 +15,5 @@
             <version>5.3</version>
         </dependency>
     </dependencies>
-    
+
 </project>
