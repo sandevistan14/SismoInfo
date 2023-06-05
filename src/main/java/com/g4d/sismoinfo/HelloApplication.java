@@ -20,13 +20,13 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    
-    public static void HelloApplication(String[] args) {
-        List<Earthquake> earthquakes = loadEarthquakesFromCSV("/amuhome/l21207728/Téléchargements/SisFrance_seismes_20230604151458.csv");
 
-        // Utilisez les données récupérées comme vous le souhaitez
+    public static void main(String[] args) {
+        List<Earthquake> earthquakes = loadEarthquakesFromCSV("/amuhome/l21207728/Downloads/SisFrance_seismes_20230604151458.csv");
+
+        // Use the retrieved data as desired
         for (Earthquake earthquake : earthquakes) {
-            System.out.println(earthquake.getNom() + " - " + earthquake.getDate());
+            System.out.println(earthquake.getName() + " - " + earthquake.getDate());
         }
     }
 
@@ -35,7 +35,7 @@ public class HelloApplication extends Application {
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            boolean firstLine = true; // Pour ignorer l'en-tête du fichier CSV
+            boolean firstLine = true; // To ignore the CSV file header
 
             while ((line = br.readLine()) != null) {
                 if (firstLine) {
@@ -45,22 +45,22 @@ public class HelloApplication extends Application {
 
                 String[] data = line.split(";");
 
-                String identifiant = data[0];
+                String identifier = data[0];
                 String date = data[1];
-                String heure = data[2];
-                String nom = data[3];
-                String regionEpicentrale = data[4];
-                String choc = data[5];
+                String time = data[2];
+                String name = data[3];
+                String epicentralRegion = data[4];
+                String shock = data[5];
                 String xRGF93L93 = data[6];
                 String yRGF93L93 = data[7];
                 String latitudeWGS84 = data[8];
                 String longitudeWGS84 = data[9];
-                String intensiteEpicentrale = data[10];
-                String qualiteIntensiteEpicentrale = data[11];
+                String epicentralIntensity = data[10];
+                String epicentralIntensityQuality = data[11];
 
-                Earthquake earthquake = new Earthquake(identifiant, date, heure, nom, regionEpicentrale, choc,
-                        xRGF93L93, yRGF93L93, latitudeWGS84, longitudeWGS84, intensiteEpicentrale,
-                        qualiteIntensiteEpicentrale);
+                Earthquake earthquake = new Earthquake(identifier, date, time, name, epicentralRegion, shock,
+                        xRGF93L93, yRGF93L93, latitudeWGS84, longitudeWGS84, epicentralIntensity,
+                        epicentralIntensityQuality);
                 earthquakes.add(earthquake);
             }
         } catch (IOException e) {
@@ -69,4 +69,3 @@ public class HelloApplication extends Application {
 
         return earthquakes;
     }
-}

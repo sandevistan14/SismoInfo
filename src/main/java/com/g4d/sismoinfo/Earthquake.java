@@ -1,63 +1,62 @@
 package com.g4d.sismoinfo;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Earthquake {
-    private String identifiant;
+    private String identifier;
     private Date date;
-    private String heure;
-    private String nom;
-    private String regionEpicentrale;
-    private String choc;
+    private String time;
+    private String name;
+    private String epicentralRegion;
+    private String shock;
     private double xRGF93L93;
     private double yRGF93L93;
     private double latitudeWGS84;
     private double longitudeWGS84;
-    private int intensiteEpicentrale;
-    private String qualiteIntensiteEpicentrale;
+    private int epicentralIntensity;
+    private String epicentralIntensityQuality;
 
-    public Earthquake(String identifiant, String date, String heure, String nom, String regionEpicentrale, String choc,
-                   String xRGF93L93, String yRGF93L93, String latitudeWGS84, String longitudeWGS84,
-                   String intensiteEpicentrale, String qualiteIntensiteEpicentrale) {
-        this.identifiant = identifiant;
+    public Earthquake(String identifier, String date, String time, String name, String epicentralRegion, String shock,
+                      String xRGF93L93, String yRGF93L93, String latitudeWGS84, String longitudeWGS84,
+                      String epicentralIntensity, String epicentralIntensityQuality) {
+        this.identifier = identifier;
         this.date = parseDate(date);
-        this.heure = heure;
-        this.nom = nom;
-        this.regionEpicentrale = regionEpicentrale;
-        this.choc = choc;
+        this.time = time;
+        this.name = name;
+        this.epicentralRegion = epicentralRegion;
+        this.shock = shock;
         this.xRGF93L93 = Double.parseDouble(xRGF93L93);
         this.yRGF93L93 = Double.parseDouble(yRGF93L93);
         this.latitudeWGS84 = Double.parseDouble(latitudeWGS84);
         this.longitudeWGS84 = Double.parseDouble(longitudeWGS84);
-        this.intensiteEpicentrale = Integer.parseInt(intensiteEpicentrale);
-        this.qualiteIntensiteEpicentrale = qualiteIntensiteEpicentrale;
+        this.epicentralIntensity = Integer.parseInt(epicentralIntensity);
+        this.epicentralIntensityQuality = epicentralIntensityQuality;
     }
 
-    public String getIdentifiant() {
-        return identifiant;
+    public String getIdentifier() {
+        return identifier;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public String getHeure() {
-        return heure;
+    public String getTime() {
+        return time;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
-    public String getRegionEpicentrale() {
-        return regionEpicentrale;
+    public String getEpicentralRegion() {
+        return epicentralRegion;
     }
 
-    public String getChoc() {
-        return choc;
+    public String getShock() {
+        return shock;
     }
 
     public double getxRGF93L93() {
@@ -76,36 +75,36 @@ public class Earthquake {
         return longitudeWGS84;
     }
 
-    public int getIntensiteEpicentrale() {
-        return intensiteEpicentrale;
+    public int getEpicentralIntensity() {
+        return epicentralIntensity;
     }
 
-    public String getQualiteIntensiteEpicentrale() {
-        return qualiteIntensiteEpicentrale;
+    public String getEpicentralIntensityQuality() {
+        return epicentralIntensityQuality;
     }
 
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public void setHeure(String heure) {
-        this.heure = heure;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setRegionEpicentrale(String regionEpicentrale) {
-        this.regionEpicentrale = regionEpicentrale;
+    public void setEpicentralRegion(String epicentralRegion) {
+        this.epicentralRegion = epicentralRegion;
     }
 
-    public void setChoc(String choc) {
-        this.choc = choc;
+    public void setShock(String shock) {
+        this.shock = shock;
     }
 
     public void setxRGF93L93(double xRGF93L93) {
@@ -124,12 +123,12 @@ public class Earthquake {
         this.longitudeWGS84 = longitudeWGS84;
     }
 
-    public void setIntensiteEpicentrale(int intensiteEpicentrale) {
-        this.intensiteEpicentrale = intensiteEpicentrale;
+    public void setEpicentralIntensity(int epicentralIntensity) {
+        this.epicentralIntensity = epicentralIntensity;
     }
 
-    public void setQualiteIntensiteEpicentrale(String qualiteIntensiteEpicentrale) {
-        this.qualiteIntensiteEpicentrale = qualiteIntensiteEpicentrale;
+    public void setEpicentralIntensityQuality(String epicentralIntensityQuality) {
+        this.epicentralIntensityQuality = epicentralIntensityQuality;
     }
 
     private Date parseDate(String dateStr) {
