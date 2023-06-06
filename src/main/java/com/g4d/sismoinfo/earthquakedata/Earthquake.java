@@ -7,7 +7,6 @@ import java.time.LocalTime;
 public class Earthquake {
     private int id;
     private LocalDate date;
-
     private LocalTime time;
     private String localisation;
     private String epicentralRegion;
@@ -27,6 +26,6 @@ public class Earthquake {
         this.latitude = latitude;
         this.longitude = longitude;
         this.epicentralIntensity = epicentralIntensity;
-        this.epicentralIntensityQuality = epicentralCode.A;
+        this.epicentralIntensityQuality = epicentralCode.valueOf(epicentralIntensityQuality);
     }
 }
