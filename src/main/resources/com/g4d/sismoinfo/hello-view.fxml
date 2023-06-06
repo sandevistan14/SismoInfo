@@ -5,12 +5,20 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.g4d.sismoinfo.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.HelloController">
+    <top>
+        <MenuBar>
+            <Menu text="Logo app" > </Menu>
+            <Menu text="Accueil" > </Menu>
+            <Menu text="Carte" > </Menu>
+            <Menu text="Dashboard" > </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <Button text="Ajouter un fichier CSV" />
+    </center>
+</BorderPane>
