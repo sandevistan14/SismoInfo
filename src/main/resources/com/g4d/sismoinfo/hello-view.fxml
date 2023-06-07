@@ -9,16 +9,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.HelloController">
+<BorderPane style="-fx-background-color: #e8fdfe;" xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.HelloController">
     <top>
         <MenuBar>
-            <Menu text="Logo app" > </Menu>
             <Menu text="Accueil" > </Menu>
             <Menu text="Carte" > </Menu>
             <Menu text="Dashboard" > </Menu>
         </MenuBar>
     </top>
     <center>
-        <Button text="Ajouter un fichier CSV" />
+        <VBox alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" right="0" bottom="0" left="0" />
+            </padding>
+            <Button text="Ajouter un fichier CSV" > </Button>
+        </VBox>
     </center>
 </BorderPane>
+
