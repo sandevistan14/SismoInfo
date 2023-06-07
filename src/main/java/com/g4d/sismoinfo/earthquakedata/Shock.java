@@ -1,13 +1,13 @@
 package com.g4d.sismoinfo.earthquakedata;
 
 public enum Shock {
-    BLANK(" "),
+    BLANK(""),
     P("PRECURSEUR"),
     R("REPLIQUE"),
     E("SECOUSSE INDIVIDUALISEE D UN ESSAIM"),
     Z("GROUPE DE SECOUSSES D UN ESSAIM");
 
-    private String value;
+    private final String value;
 
     Shock(String shock) {
         this.value = shock;
@@ -15,5 +15,14 @@ public enum Shock {
 
     public String getValue() {
         return value;
+    }
+
+    public static Shock fromValue(String givenName) {
+        for (Shock shock : values()) {
+            if (shock.value.equals(givenName)) {
+                return shock;
+            }
+        }
+        return null;
     }
 }

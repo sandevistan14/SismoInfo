@@ -22,10 +22,10 @@ public class Earthquake {
         this.time = dataFormatting.timeParsing(time);
         this.localisation = localisation;
         this.epicentralRegion = epicentralRegion;
-        this.shock = Shock.valueOf(shock);
+        this.shock = Shock.fromValue(shock);
         this.latitude = latitude;
         this.longitude = longitude;
         this.epicentralIntensity = epicentralIntensity;
-        this.epicentralIntensityQuality = epicentralCode.valueOf(epicentralIntensityQuality);
+        this.epicentralIntensityQuality = epicentralCode.fromValue(epicentralIntensityQuality);
     }
 }

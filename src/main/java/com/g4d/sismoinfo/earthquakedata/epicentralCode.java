@@ -9,7 +9,7 @@ public enum epicentralCode {
     I("INFORMATION ISOLÉE"),
     K("ASSEZ SURE (SPONHEUER)");
 
-    private String value;
+    private final String value;
 
     epicentralCode(String epicentralCode) {
         this.value = epicentralCode;
@@ -17,5 +17,14 @@ public enum epicentralCode {
 
     public String getValue() {
         return value;
+    }
+
+    public static epicentralCode fromValue(String givenName) {
+        for (epicentralCode code : values()) {
+            if (code.value.equals(givenName)) {
+                return code;
+            }
+        }
+        return null;
     }
 }

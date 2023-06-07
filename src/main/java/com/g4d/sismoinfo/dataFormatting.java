@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class dataFormatting {
     private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-    private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H' h'[' 'm' min']");
+    private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H' h'[' 'm' min'[' 's' sec']");
 
     private final static String DEFAULT_MONTH_AND_DAY = "01";
 
