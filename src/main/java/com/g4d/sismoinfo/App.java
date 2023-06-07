@@ -11,7 +11,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HelloApplication extends Application {
+public class App extends Application {
 
     public static void main(String[] args) {
         // List<Earthquake> earthquakes = loadEarthquakesFromCSV("/amuhome/l21207728/Downloads/SisFrance_seismes_20230604151458.csv");
@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/g4d/sismoinfo/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/com/g4d/sismoinfo/home.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
