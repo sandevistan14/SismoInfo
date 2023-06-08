@@ -2,12 +2,11 @@ package map;
 
 import com.gluonhq.maps.MapLayer;
 import com.gluonhq.maps.MapPoint;
-
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-/** Affiche une épingle sur la carte */
+
 public class CustomPinLayer extends MapLayer {
 
     private final MapPoint mapPoint;
@@ -15,10 +14,7 @@ public class CustomPinLayer extends MapLayer {
 
     private static final int PIN_WIDTH = 15, PIN_HEIGHT = 20;
 
-    /**
-     * @param mapPoint le point (latitude et longitude) où afficher l'épingle
-     * @see com.gluonhq.maps.MapPoint
-     */
+
     public CustomPinLayer(MapPoint mapPoint) {
         this.mapPoint = mapPoint;
 

@@ -86,17 +86,29 @@
         <dependency>
             <groupId>com.gluonhq.attach</groupId>
             <artifactId>util</artifactId>
-            <version>4.0.11</version>
+            <version>4.0.17</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.gluonhq.attach</groupId>
             <artifactId>storage</artifactId>
-            <version>4.0.11</version>
+            <version>4.0.17</version>
             <scope>runtime</scope>
             <classifier>desktop</classifier>
         </dependency>
+        <dependency>
+            <groupId>com.github.gluonhq</groupId>
+            <artifactId>maps</artifactId>
+            <version>1.0.4</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
