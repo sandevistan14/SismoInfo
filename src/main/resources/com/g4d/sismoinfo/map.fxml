@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane style="-fx-background-color: #e8fdfe;" xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.DashboardController">
+<BorderPane style="-fx-background-color: #e8fdfe;" xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.MapController">
     <top>
         <MenuBar>
             <Menu text="Accueil">

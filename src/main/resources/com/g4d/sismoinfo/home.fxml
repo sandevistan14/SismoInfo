@@ -12,9 +12,15 @@
 <BorderPane style="-fx-background-color: #e8fdfe;" xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.HomeController">
     <top>
         <MenuBar>
-            <Menu text="Accueil" > </Menu>
-            <Menu text="Carte" > </Menu>
-            <Menu text="Dashboard" > </Menu>
+            <Menu text="Accueil">
+                <MenuItem text="Accueil" onAction="#handleMenuAction"/>
+            </Menu>
+            <Menu text="Carte">
+                <MenuItem text="Carte" onAction="#handleMenuAction"/>
+            </Menu>
+            <Menu text="Dashboard">
+                <MenuItem text="Dashboard" onAction="#handleMenuAction"/>
+            </Menu>
         </MenuBar>
     </top>
     <center>
