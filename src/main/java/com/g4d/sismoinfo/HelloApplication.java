@@ -1,21 +1,13 @@
 package com.g4d.sismoinfo;
 
+import com.g4d.sismoinfo.earthquakedata.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.apache.commons.csv.*;
-import java.io.FileReader;
+
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
 
 public class HelloApplication extends Application {
     @Override
