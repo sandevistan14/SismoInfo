@@ -3,6 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+
 
 <?import javafx.scene.control.Button?>
 
@@ -24,12 +27,27 @@
         </MenuBar>
     </top>
     <center>
-        <VBox alignment="TOP_CENTER">
+        <VBox alignment="TOP_CENTER" spacing="20">
             <padding>
                 <Insets top="20" right="0" bottom="0" left="0" />
             </padding>
-            <Button text="Ajouter un fichier CSV" > </Button>
+            <Button text="Ajouter un fichier CSV" />
+            <HBox spacing="10">
+                <padding>
+                    <Insets left="20" />
+                </padding>
+                <Label text="Date: "/>
+                <TextField text="De"/>
+                <TextField text="À"/>
+            </HBox>
+            <!-- <HBox fx:id="imageContainer" alignment="CENTER">
+                <Button text="Ajouter un fichier CSV" />
+                <ImageView fx:id="imageView">
+                    <image>
+                        <Image url="com/g4d/sismoinfo/checkmark.png" />
+                    </image>
+                </ImageView>
+            </HBox> -->
         </VBox>
     </center>
 </BorderPane>
-
