@@ -1,11 +1,12 @@
-package com.g4d.sismoinfo.earthquakedata;
+package com.g4d.sismoinfo.model.earthquakedata;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class database {
-    public static ArrayList<Earthquake> initialData = new ArrayList<>();
+    public static ObservableList<Earthquake> initialData = FXCollections.observableArrayList();
 
     private static ArrayList<Earthquake> filteredData;
 
@@ -32,8 +33,14 @@ public class database {
             "Qualité intensité épicentrale"
     );
 
-    public static void readCSV(File csvFile) throws IOException {
-        CSVParser parser = new CSVParser(new FileReader(csvFile),CSVFormat.DEFAULT.withHeader());;
+    public static void readCSV(File csvFile) {
+        if (csvFile == null) {return;}
+        CSVParser parser = null;
+        try {
+            parser = new CSVParser(new FileReader(csvFile), CSVFormat.DEFAULT.withHeader());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        };
         if (parser.getHeaderNames().equals(headerNames)){
             initialData.clear();
             for (CSVRecord record : parser){
@@ -51,6 +58,9 @@ public class database {
                 String epicentralIntensityQuality = record.get("Qualité intensité épicentrale");
                 initialData.add(new Earthquake(id,date,hour,localisation,epicentralRegion,shock,xRGF93,yRGF93,latitude,longitude,epicentralIntensity,epicentralIntensityQuality));
             }
+        }
+        else {
+            // RENVOYER ERREUR
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.g4d.sismoinfo;
 
-import com.g4d.sismoinfo.earthquakedata.Shock;
-import com.g4d.sismoinfo.earthquakedata.epicentralCode;
+import com.g4d.sismoinfo.model.earthquakedata.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

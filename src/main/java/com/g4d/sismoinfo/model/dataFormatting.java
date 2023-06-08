@@ -1,4 +1,4 @@
-package com.g4d.sismoinfo;
+package com.g4d.sismoinfo.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

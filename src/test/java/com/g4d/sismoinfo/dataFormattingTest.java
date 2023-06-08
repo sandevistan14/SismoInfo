@@ -1,5 +1,6 @@
 package com.g4d.sismoinfo;
 
+import com.g4d.sismoinfo.model.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
