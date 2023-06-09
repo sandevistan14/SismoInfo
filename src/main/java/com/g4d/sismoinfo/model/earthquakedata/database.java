@@ -14,6 +14,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class database {
+    public static ObservableList<Earthquake> getInitialData() {
+        return initialData;
+    }
+
+    public static void setInitialData(ObservableList<Earthquake> initialData) {
+        database.initialData = initialData;
+    }
+
     public static ObservableList<Earthquake> initialData = FXCollections.observableArrayList();
 
     private static ArrayList<Earthquake> filteredData;

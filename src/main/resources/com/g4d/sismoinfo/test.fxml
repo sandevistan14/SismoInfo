@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.*?>
@@ -23,5 +24,15 @@
       <RangeSlider fx:id="epicentralIntensitySlider" highValue="12.0" lowValue="2.0" majorTickUnit="2.0" max="12.0" min="2.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Label fx:id="min" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label fx:id="max" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <LineChart fx:id="GrapheLineChart">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <Button mnemonicParsing="false" onAction="#testo" text="Button" GridPane.rowIndex="1" />
+      <PieChart fx:id="GraphePieChart" prefHeight="174.0" prefWidth="450.0" GridPane.rowIndex="2" />
    </children>
 </GridPane>
