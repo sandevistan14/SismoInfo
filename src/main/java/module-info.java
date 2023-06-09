@@ -7,8 +7,9 @@ module com.g4d.sismoinfo {
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
     requires org.apache.commons.csv;
+    requires de.saxsys.mvvmfx;
 
-    opens com.g4d.sismoinfo to javafx.fxml;
+    opens com.g4d.sismoinfo to javafx.fxml,de.saxsys.mvvmfx;
     exports com.g4d.sismoinfo;
     exports com.g4d.sismoinfo.earthquakedata;
     opens com.g4d.sismoinfo.earthquakedata to javafx.fxml;

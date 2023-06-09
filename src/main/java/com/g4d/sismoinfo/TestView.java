@@ -1,9 +1,10 @@
 package com.g4d.sismoinfo;
 
 import javafx.fxml.FXML;
+import de.saxsys.mvvmfx.FxmlView;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class TestView implements FxmlView<TestViewModel>{
     @FXML
     private Label welcomeText;
 
