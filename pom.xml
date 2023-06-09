@@ -101,7 +101,7 @@
             <artifactId>maps</artifactId>
             <version>1.0.4</version>
         </dependency>
-    </dependencies>
+</dependencies>
 
     <repositories>
         <repository>

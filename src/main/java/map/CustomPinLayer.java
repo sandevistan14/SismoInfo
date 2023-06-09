@@ -1,38 +1,34 @@
 package map;
-
 import com.gluonhq.maps.MapLayer;
 import com.gluonhq.maps.MapPoint;
-import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class CustomPinLayer extends MapLayer {
 
     private final MapPoint mapPoint;
-    private final ImageView mapPinImageView;
-
-    private static final int PIN_WIDTH = 15, PIN_HEIGHT = 20;
+    private final Circle circle;
 
 
     public CustomPinLayer(MapPoint mapPoint) {
         this.mapPoint = mapPoint;
 
-        Image image = new Image("map-pin.png", PIN_WIDTH, PIN_HEIGHT, false, false);
-        this.mapPinImageView = new ImageView(image);
+        /* Cercle rouge de taille 5 */
+        this.circle = new Circle(5, Color.RED);
 
-        /* Ajoute l'épingle au MapLayer */
-        this.getChildren().add(this.mapPinImageView);
+        /* Ajoute le cercle au MapLayer */
+        this.getChildren().add(circle);
     }
 
-    /* La fonction est appelée à chaque rafraichissement de la carte */
+
     @Override
     protected void layoutLayer() {
-        /* Conversion du MapPoint vers Point2D */
+
         Point2D point2d = this.getMapPoint(mapPoint.getLatitude(), mapPoint.getLongitude());
 
-        /* Déplace l'épingle selon les coordonnées du point */
-        mapPinImageView.setTranslateX(point2d.getX() - (PIN_WIDTH / 2));
-        mapPinImageView.setTranslateY(point2d.getY() - PIN_HEIGHT);
+        circle.setTranslateX(point2d.getX());
+        circle.setTranslateY(point2d.getY());
     }
 }

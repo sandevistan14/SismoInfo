@@ -5,6 +5,7 @@ import com.gluonhq.maps.MapView;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -13,19 +14,15 @@ public class Map extends Application {
     @Override
     public void start(Stage stage) {
 
-
         System.setProperty("javafx.platform", "desktop");
-
-
         System.setProperty("http.agent", "Gluon Mobile/1.0.3");
 
         VBox root = new VBox();
 
-
         MapView mapView = new MapView();
 
         MapPoint centre = new MapPoint(46.227638, 2.213749);
-
+        mapView.setZoom(5);
 
         mapView.setOnMouseClicked(e -> {
             MapPoint centerPoint = mapView.getCenter();
@@ -48,24 +45,20 @@ public class Map extends Application {
             MapPoint clickedPoint = new MapPoint(newLat, newLon);
 
             System.out.println("Clicked latitude: " + newLat + ", longitude: " + newLon);
+            System.out.println("Zoom level: " + zoom);
+
             MapLayer mapLayer = new CustomPinLayer(clickedPoint);
             mapView.addLayer(mapLayer);
+            mapView.flyTo(0, clickedPoint, 0.1);
         });
 
-
-
-        mapView.setZoom(5);
-
-
-        mapView.flyTo(0, centre , 0.1);
+        mapView.flyTo(0, centre, 0.1);
 
         root.getChildren().add(mapView);
 
-        Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(root, 1000, 1000);
 
         stage.setScene(scene);
         stage.show();
-
     }
-
 }
