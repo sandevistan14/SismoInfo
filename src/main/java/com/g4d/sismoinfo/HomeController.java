@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,7 @@ public class HomeController {
 
     private static final double WINDOW_WIDTH = 800; // Largeur de la fenêtre
     private static final double WINDOW_HEIGHT = 550; // Hauteur de la fenêtre
+    private boolean fileInsert = false;
     // @FXML
     // private HBox imageContainer;
 
@@ -55,5 +57,19 @@ public class HomeController {
             stage.setScene(scene);
         }
         stage.show();
+    }
+
+   @FXML
+    private void handleRechercherAction(ActionEvent event) throws IOException {
+        if (fileInsert) {
+            Button button = (Button) event.getSource();
+            Stage stage = (Stage) button.getScene().getWindow();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/map.fxml"));
+            Parent mapRoot = fxmlLoader.load();
+            Scene mapScene = new Scene(mapRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+            stage.setScene(mapScene);
+            stage.show();
+        }
     }
 }

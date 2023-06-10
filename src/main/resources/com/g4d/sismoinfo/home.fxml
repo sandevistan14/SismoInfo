@@ -28,7 +28,7 @@
     <center>
         <GridPane alignment="TOP_CENTER" hgap="20" vgap="30">
             <padding>
-                <Insets top="20" right="0" bottom="0" left="0" />
+                <Insets top="40" right="0" bottom="0" left="0" />
             </padding>
             <HBox fx:id="imageContainer" alignment="center" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0" >
                 <Button text="Ajouter un fichier CSV"  />
@@ -45,9 +45,10 @@
                 <Label text="Localisation" />
                 <ComboBox />
             </HBox>
-
+            <HBox alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                <Button text="Rechercher" onAction="#handleRechercherAction" />
+            </HBox>
             <!-- Reste du contenu du GridPane -->
-
         </GridPane>
     </center>
 </BorderPane>
