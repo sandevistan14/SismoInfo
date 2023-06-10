@@ -2,6 +2,9 @@ package com.g4d.sismoinfo.view;
 
 import com.g4d.sismoinfo.model.earthquakedata.Earthquake;
 import com.g4d.sismoinfo.model.earthquakedata.database;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ObservableSetValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +26,7 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Test extends GridPane implements Initializable {
     FileChooser csvFileChooser = new FileChooser();
@@ -30,6 +34,12 @@ public class Test extends GridPane implements Initializable {
 
     @FXML
     RangeSlider epicentralIntensitySlider;
+
+    @FXML
+    DatePicker after;
+
+    @FXML
+    DatePicker before;
 
     @FXML
     Label min;
@@ -52,13 +62,26 @@ public class Test extends GridPane implements Initializable {
         csvFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
         epicentralIntensitySlider.setLowValue(2);
         epicentralIntensitySlider.setHighValue(12);
-        epicentralIntensitySlider.lowValueProperty().addListener((obs, oldval, newVal) ->
-                epicentralIntensitySlider.setLowValue(epicentralIntensitySlider.lowValueProperty().intValue()));
-        epicentralIntensitySlider.highValueProperty().addListener((obs, oldval, newVal) ->
-                epicentralIntensitySlider.setHighValue(epicentralIntensitySlider.highValueProperty().intValue()));
+        after.valueProperty().addListener((observable, oldValue, newValue) -> {
+            database.setFilterAfterDate(earthquake -> earthquake.getDate().isAfter(newValue));
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
+        before.valueProperty().addListener((observable, oldValue, newValue) -> {
+            database.setFilterBeforeDate(earthquake -> earthquake.getDate().isBefore(newValue));
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
+        epicentralIntensitySlider.lowValueProperty().addListener((observable) -> {
+            epicentralIntensitySlider.lowValueProperty().set(epicentralIntensitySlider.lowValueProperty().intValue());
+            database.setFilterByMinIntensity(earthquake -> earthquake.getEpicentralIntensity() >= epicentralIntensitySlider.lowValueProperty().intValue());
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+
+        });
+        epicentralIntensitySlider.highValueProperty().addListener((observable) -> {
+            epicentralIntensitySlider.highValueProperty().set(epicentralIntensitySlider.highValueProperty().intValue());
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
         min.textProperty().bind(epicentralIntensitySlider.lowValueProperty().asString());
         max.textProperty().bind(epicentralIntensitySlider.highValueProperty().asString());
-
         DicoDataPie.put("A",0);
         DicoDataPie.put("B",0);
         DicoDataPie.put("C",0);
@@ -72,8 +95,8 @@ public class Test extends GridPane implements Initializable {
         Button sourceOfEvent = (Button) event.getSource();
         csvFile = csvFileChooser.showOpenDialog(sourceOfEvent.getScene().getWindow());
         database.readCSV(csvFile);
-        for (Earthquake quake : database.initialData){
-
+        for (Earthquake quake : database.getFilteredData()){
+            System.out.println(quake);
         };
     }
 
@@ -84,7 +107,7 @@ public class Test extends GridPane implements Initializable {
     }
 
 
-    public void AddInGrapheLineChart(ArrayList<Earthquake> filteredData){
+    public void AddInGrapheLineChart(List<Earthquake> filteredData){
 
         dictionary.put(Integer.toString(filteredData.get(0).getDate().getYear()),1);
         for(int i = 0;i < filteredData.size();++i){
@@ -109,12 +132,19 @@ public class Test extends GridPane implements Initializable {
 
     @FXML
     public void testo(){
-        ArrayList<Earthquake> filteredData = new ArrayList<>(database.getInitialData());
-        AddInGrapheLineChart(filteredData);
-        AddInGraphePieChart(filteredData);
+        AddInGrapheLineChart(database.getFilteredData());
+        AddInGraphePieChart(database.getFilteredData());
 
     }
-    public void AddInGraphePieChart(ArrayList<Earthquake> filteredData){
+
+    @FXML
+    public void showFilteredList(){
+        for (Earthquake quake : database.getFilteredData()){
+            System.out.println(quake);
+        };
+    }
+
+    public void AddInGraphePieChart(List<Earthquake> filteredData){
         for(int i = 0;i < filteredData.size();++i){
             for(Map.Entry<String, Integer> entry : DicoDataPie.entrySet()) {
                 if(filteredData.get(i).getEpicentralIntensityQuality().name().equals(entry.getKey())){
@@ -128,8 +158,6 @@ public class Test extends GridPane implements Initializable {
         }
 
         GraphePieChart.setData(DataGraphePieChart);
-
-
     }
 
 

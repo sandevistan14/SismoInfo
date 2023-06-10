@@ -34,5 +34,6 @@
       </LineChart>
       <Button mnemonicParsing="false" onAction="#testo" text="Button" GridPane.rowIndex="1" />
       <PieChart fx:id="GraphePieChart" prefHeight="174.0" prefWidth="450.0" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#showFilteredList" text="afficher tableau" GridPane.rowIndex="2" />
    </children>
 </GridPane>

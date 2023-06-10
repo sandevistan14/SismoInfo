@@ -2,6 +2,7 @@ package com.g4d.sismoinfo.model.earthquakedata;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class database {
     public static ObservableList<Earthquake> getInitialData() {
@@ -22,9 +24,37 @@ public class database {
         database.initialData = initialData;
     }
 
-    public static ObservableList<Earthquake> initialData = FXCollections.observableArrayList();
+    private static ObservableList<Earthquake> initialData = FXCollections.observableArrayList();
 
-    private static ArrayList<Earthquake> filteredData;
+    private static FilteredList<Earthquake> filteredData = new FilteredList<>(initialData);
+
+    private static Predicate<Earthquake> filterAfterDate = new Predicate<Earthquake>() {
+        @Override
+        public boolean test(Earthquake earthquake) {
+            return true;
+        }
+    };
+
+    private static Predicate<Earthquake> filterBeforeDate = new Predicate<Earthquake>() {
+        @Override
+        public boolean test(Earthquake earthquake) {
+            return true;
+        }
+    };
+
+    private static Predicate<Earthquake> filterByMinIntensity  = new Predicate<Earthquake>() {
+        @Override
+        public boolean test(Earthquake earthquake) {
+            return true;
+        }
+    };
+
+    private static Predicate<Earthquake> filterByMaxIntensity  = new Predicate<Earthquake>() {
+        @Override
+        public boolean test(Earthquake earthquake) {
+            return true;
+        }
+    };
 
     private static List<String> headerNames = Arrays.asList(
             "Identifiant",
@@ -70,5 +100,49 @@ public class database {
         else {
             // RENVOYER ERREUR
         }
+    }
+
+    public static FilteredList<Earthquake> getFilteredData() {
+        return filteredData;
+    }
+
+    public static void setFilteredData(FilteredList<Earthquake> filteredData) {
+        database.filteredData = filteredData;
+    }
+
+    public static Predicate<Earthquake> getFilterAfterDate() {
+        return filterAfterDate;
+    }
+
+    public static void setFilterAfterDate(Predicate<Earthquake> filterAfterDate) {
+        database.filterAfterDate = filterAfterDate;
+    }
+
+    public static Predicate<Earthquake> getFilterBeforeDate() {
+        return filterBeforeDate;
+    }
+
+    public static void setFilterBeforeDate(Predicate<Earthquake> filterBeforeDate) {
+        database.filterBeforeDate = filterBeforeDate;
+    }
+
+    public static Predicate<Earthquake> getFilterByMinIntensity() {
+        return filterByMinIntensity;
+    }
+
+    public static void setFilterByMinIntensity(Predicate<Earthquake> filterByMinIntensity) {
+        database.filterByMinIntensity = filterByMinIntensity;
+    }
+
+    public static Predicate<Earthquake> getFilterByMaxIntensity() {
+        return filterByMaxIntensity;
+    }
+
+    public static void setFilterByMaxIntensity(Predicate<Earthquake> filterByMaxIntensity) {
+        database.filterByMaxIntensity = filterByMaxIntensity;
+    }
+
+    public static Predicate<Earthquake> getAllPredicates() {
+        return getFilterAfterDate().and(getFilterBeforeDate()).and(getFilterByMaxIntensity()).and(getFilterByMinIntensity());
     }
 }
