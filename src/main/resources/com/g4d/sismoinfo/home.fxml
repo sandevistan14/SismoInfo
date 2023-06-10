@@ -31,7 +31,7 @@
                 <Insets top="40" right="0" bottom="0" left="0" />
             </padding>
             <HBox fx:id="imageContainer" alignment="center" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0" >
-                <Button text="Ajouter un fichier CSV"  />
+                <Button fx:id="insertButton" text="Insérer un fichier CSV" onAction="#handleInsertAction" />
                 <ImageView fx:id="imageView">
                     <Image url="@notValid.png" requestedWidth="25" requestedHeight="25" />
                 </ImageView>

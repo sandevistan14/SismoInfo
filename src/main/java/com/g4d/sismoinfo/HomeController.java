@@ -20,17 +20,27 @@ public class HomeController {
     private static final double WINDOW_WIDTH = 800; // Largeur de la fenêtre
     private static final double WINDOW_HEIGHT = 550; // Hauteur de la fenêtre
     private boolean fileInsert = false;
-    // @FXML
-    // private HBox imageContainer;
 
-    // @FXML
-    // private void initialize() {
-    //     String imagePath = "file:/Users/maxime/Documents/SismoInfo/src/main/resources/com/g4d/sismoinfo/checkmark.png";
-    //     Image image = new Image(imagePath);
-    //     ImageView imageView = new ImageView(image);
-    //     imageContainer.getChildren().add(imageView);
-    // }
+    @FXML
+    private HBox imageContainer;
 
+    @FXML
+    private ImageView imageView;
+
+    @FXML
+    private void handleInsertAction(ActionEvent event) {
+        fileInsert = true;
+
+        // Mettre à jour l'image en "valid.png"
+        String imagePath = "file:/Users/maxime/Documents/SismoInfo/src/main/resources/com/g4d/sismoinfo/valid.png";
+        Image image = new Image(imagePath);
+        imageView.setImage(image);
+
+        // Définir la taille de l'image en utilisant une règle CSS
+        imageView.setFitWidth(24); // Remplacez la valeur par la largeur souhaitée
+        imageView.setFitHeight(24); // Remplacez la valeur par la hauteur souhaitée
+        imageView.setPreserveRatio(true); // Conserver le ratio d'aspect de l'image
+    }
 
 
     @FXML
