@@ -147,9 +147,6 @@ public class Test extends GridPane implements Initializable {
             }
         }
 
-        for(Map.Entry<String, Integer> entry : DicoDataBar.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
-        }
         DicoDataBar = SortDico(DicoDataBar);
 
         for(Map.Entry<String, Integer> entry : DicoDataBar.entrySet()) {
@@ -177,6 +174,14 @@ public class Test extends GridPane implements Initializable {
         DataGrapheBarChart.clear();
         GrapheBarChart.getData().clear();
 
+        DicoDataLine.clear();
+        DataGrapheLineChart.clear();
+        SeriesGrapheLineChart.getData().clear();
+
+        DicoDataBar.clear();
+        DataGrapheBarChart.clear();
+        SeriesGrapheBarChart.getData().clear();
+
     }
 
     public Map<String, Integer> SortDico(Map<String, Integer> dico){
@@ -184,35 +189,11 @@ public class Test extends GridPane implements Initializable {
         List<Map.Entry<String, Integer>> entries = new ArrayList<>(dico.entrySet());
 
         entries.sort(Map.Entry.comparingByKey());
-
         Map<String, Integer> sortedDico = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> entry : entries) {
             sortedDico.put(entry.getKey(), entry.getValue());
         }
 
         return sortedDico;
-        /*
-        boolean first = true;
-        double MinKey = 15;
-        int MinValues = 0;
-        double Cap = 0;
-
-        while(SortDic.size() < Dico.size()) {
-            for (Map.Entry<String, Integer> entry : Dico.entrySet()) {
-                System.out.println(
-                        "Trace : " + MinKey + " > " +
-                                Double.valueOf(entry.getKey()) + " && " + Double.valueOf(entry.getKey()) + " > " + Cap
-                );
-                if (MinKey > Double.valueOf(entry.getKey()) && Double.valueOf(entry.getKey()) > Cap) {
-                    MinKey = Double.valueOf(entry.getKey());
-                    MinValues = entry.getValue();
-                }
-            }
-            Cap = Double.valueOf(MinKey);
-            SortDic.put(Double.toString(MinKey), MinValues);
-        }
-
-         */
-        //return SortDic;
     }
 }
