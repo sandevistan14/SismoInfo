@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.image.ImageView?>
-
-
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane style="-fx-background-color: #e8fdfe;" xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.HomeController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.HomeController" stylesheets="@styles.css">
     <top>
         <MenuBar>
             <Menu text="Accueil">
@@ -27,27 +26,28 @@
         </MenuBar>
     </top>
     <center>
-        <VBox alignment="TOP_CENTER" spacing="20">
+        <GridPane alignment="TOP_CENTER" hgap="20" vgap="30">
             <padding>
                 <Insets top="20" right="0" bottom="0" left="0" />
             </padding>
-            <Button text="Ajouter un fichier CSV" />
-            <HBox spacing="10">
-                <padding>
-                    <Insets left="20" />
-                </padding>
+            <HBox fx:id="imageContainer" alignment="center" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0" >
+                <Button text="Ajouter un fichier CSV"  />
+                <ImageView fx:id="imageView">
+                    <Image url="@notValid.png" requestedWidth="25" requestedHeight="25" />
+                </ImageView>
+            </HBox>
+           <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1">
                 <Label text="Date: "/>
                 <TextField text="De"/>
                 <TextField text="À"/>
             </HBox>
-            <!-- <HBox fx:id="imageContainer" alignment="CENTER">
-                <Button text="Ajouter un fichier CSV" />
-                <ImageView fx:id="imageView">
-                    <image>
-                        <Image url="com/g4d/sismoinfo/checkmark.png" />
-                    </image>
-                </ImageView>
-            </HBox> -->
-        </VBox>
+            <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <Label text="Localisation" />
+                <ComboBox />
+            </HBox>
+
+            <!-- Reste du contenu du GridPane -->
+
+        </GridPane>
     </center>
 </BorderPane>

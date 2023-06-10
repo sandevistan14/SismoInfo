@@ -1,0 +1,91 @@
+/* Style pour le fond de la fenêtre */
+.root {
+    -fx-background-color: #93aed3;
+}
+
+/* Style pour la barre de menu */
+.menu-bar {
+    -fx-background-color: #333333;
+}
+
+/* Style pour le survol des menus principaux */
+.menu-bar .menu:hover {
+    -fx-background-color: #5555;
+}
+
+/* Style pour le texte des menus principaux */
+.menu-bar .menu .label {
+    -fx-text-fill: white;
+}
+
+/* Style pour la barre de menu */
+.menu-item {
+    -fx-background-color: #333333;
+}
+
+/* Style pour le survol des menus principaux */
+.menu-item .menu:hover {
+    -fx-background-color: #5555;
+}
+
+/* Style pour le texte des menus principaux */
+.menu-item .menu .label {
+    -fx-text-fill: white;
+}
+
+/* Style pour les boutons */
+.button {
+    -fx-background-color: #4CAF50; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-padding: 8px 16px; /* Espacement interne */
+    -fx-border-radius: 4px; /* Rayon des coins */
+}
+
+.button:hover {
+    -fx-background-color: #45a049; /* Couleur de fond au survol */
+}
+
+/* Style pour les étiquettes */
+.label {
+    -fx-font-size: 16px; /* Taille de la police */
+    -fx-text-fill: #333333; /* Couleur du texte */
+}
+
+/* Style pour les champs de texte */
+.text-field {
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-text-fill: #333333; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-padding: 4px 8px; /* Espacement interne */
+    -fx-border-color: #cccccc; /* Couleur de la bordure */
+    -fx-border-width: 1px; /* Épaisseur de la bordure */
+    -fx-border-radius: 4px; /* Rayon des coins */
+}
+
+/* Style pour les zones de liste déroulante */
+.combo-box {
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-text-fill: #333333; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-padding: 4px 8px; /* Espacement interne */
+    -fx-border-color: #cccccc; /* Couleur de la bordure */
+    -fx-border-width: 1px; /* Épaisseur de la bordure */
+    -fx-border-radius: 4px; /* Rayon des coins */
+}
+
+/* Style pour les images */
+.image-view {
+    -fx-border-color: #333333; /* Couleur de la bordure */
+    -fx-border-width: 2px; /* Épaisseur de la bordure */
+    -fx-border-radius: 4px; /* Rayon des coins */
+}
+
+/* Style pour les conteneurs */
+.grid-pane {
+    -fx-padding: 20px; /* Espacement interne */
+}
+
+.h-box {
+    -fx-spacing: 10px; /* Espacement entre les éléments */
+}
