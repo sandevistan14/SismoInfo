@@ -2,7 +2,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.image.ImageView?>
@@ -28,7 +28,7 @@
     <center>
         <GridPane alignment="TOP_CENTER" hgap="20" vgap="30">
             <padding>
-                <Insets top="40" right="0" bottom="0" left="0" />
+                <Insets top="60" right="0" bottom="0" left="0" />
             </padding>
             <HBox fx:id="imageContainer" alignment="center" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0" >
                 <Button fx:id="insertButton" text="Insérer un fichier CSV" onAction="#handleInsertAction" />
@@ -41,11 +41,11 @@
                 <TextField text="De"/>
                 <TextField text="À"/>
             </HBox>
-            <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <HBox spacing="50" GridPane.columnIndex="0" GridPane.rowIndex="2">
                 <Label text="Localisation" />
-                <ComboBox />
+                <ChoiceBox fx:id="choiceBox" />
             </HBox>
-            <HBox alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="5">
+            <HBox alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="6">
                 <Button text="Rechercher" onAction="#handleRechercherAction" />
             </HBox>
             <!-- Reste du contenu du GridPane -->

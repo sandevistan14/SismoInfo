@@ -28,6 +28,15 @@
     -fx-background-color: #5555;
 }
 
+.choice-box .menu-item {
+    -fx-background-color: white;
+}
+
+.choice-box .menu-item:hover {
+    -fx-background-color: rgb(241, 232, 232);
+}
+
+
 /* Style pour le texte des menus principaux */
 .menu-item .menu .label {
     -fx-text-fill: white;

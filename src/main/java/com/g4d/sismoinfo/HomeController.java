@@ -3,12 +3,14 @@ package com.g4d.sismoinfo;
 import java.io.File;
 import java.io.IOException;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,13 +21,29 @@ public class HomeController {
 
     private static final double WINDOW_WIDTH = 800; // Largeur de la fenêtre
     private static final double WINDOW_HEIGHT = 550; // Hauteur de la fenêtre
+    private final String[] regionsFrance = {"Auvergne-Rhône-Alpes", "Bourgogne-Franche-Comté", "Bretagne", "Centre-Val de Loire", "Corse", "Grand Est", "Hauts-de-France", "Île-de-France", "Normandie", "Nouvelle-Aquitaine", "Occitanie", "Pays de la Loire", "Provence-Alpes-Côte d'Azur"};
     private boolean fileInsert = false;
+
+    @FXML
+    private ChoiceBox<String> choiceBox;
 
     @FXML
     private HBox imageContainer;
 
     @FXML
     private ImageView imageView;
+
+    @FXML
+    public void initialize() {
+        choiceBox.setItems(FXCollections.observableArrayList(regionsFrance));
+        choiceBox.setOnAction(this::handleChoiceBoxAction);
+    }
+
+    @FXML
+    private void handleChoiceBoxAction(ActionEvent event) {
+        String selectedRegion = choiceBox.getValue();
+        System.out.println("Région sélectionnée : " + selectedRegion);
+    }
 
     @FXML
     private void handleInsertAction(ActionEvent event) {
