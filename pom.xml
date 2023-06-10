@@ -95,7 +95,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.g4d.sismoinfo/com.g4d.sismoinfo.Application</mainClass>
+                            <mainClass>com.g4d.sismoinfo/com.g4d.sismoinfo.Starter</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
