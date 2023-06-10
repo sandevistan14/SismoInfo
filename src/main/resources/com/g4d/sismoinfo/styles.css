@@ -43,7 +43,7 @@
 }
 
 /* Style pour les boutons */
-.button {
+#insertButton, #search {
     -fx-background-color: #4CAF50; /* Couleur de fond */
     -fx-text-fill: white; /* Couleur du texte */
     -fx-font-size: 14px; /* Taille de la police */
@@ -51,7 +51,7 @@
     -fx-border-radius: 4px; /* Rayon des coins */
 }
 
-.button:hover {
+#insertButton:hover, #search:hover {
     -fx-background-color: #45a049; /* Couleur de fond au survol */
 }
 

@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +27,12 @@ public class HomeController {
     private boolean fileInsert = false;
 
     @FXML
+    DatePicker after;
+
+    @FXML
+    DatePicker before;
+
+    @FXML
     private ChoiceBox<String> choiceBox;
 
     @FXML
@@ -37,6 +45,12 @@ public class HomeController {
     public void initialize() {
         choiceBox.setItems(FXCollections.observableArrayList(regionsFrance));
         choiceBox.setOnAction(this::handleChoiceBoxAction);
+    }
+
+    @FXML
+    protected void DateAction (ActionEvent event){
+        DatePicker sourceOfEvent = (DatePicker) event.getSource();
+        System.out.println(sourceOfEvent.getValue());
     }
 
     @FXML
