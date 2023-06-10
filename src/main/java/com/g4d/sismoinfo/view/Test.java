@@ -7,10 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.StackedBarChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -20,6 +17,7 @@ import org.controlsfx.control.RangeSlider;
 import org.controlsfx.control.spreadsheet.GridBase;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
@@ -36,17 +34,8 @@ public class Test extends GridPane implements Initializable {
     @FXML
     Label max;
 
-    @FXML
-    LineChart GrapheLineChart;
-    @FXML
-    PieChart GraphePieChart = new PieChart();
-    Map<String, Integer> dictionary = new LinkedHashMap<>();
 
-    ObservableList< XYChart.Data<String, Number> > DataGrapheLineChart = FXCollections.observableArrayList();
-    XYChart.Series<String, Number> SeriesGrapheLineChart = new XYChart.Series<>(DataGrapheLineChart);
-    Map<String, Integer> DicoDataPie = new LinkedHashMap<>(5);
 
-    ObservableList<PieChart.Data> DataGraphePieChart = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         csvFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
@@ -84,37 +73,52 @@ public class Test extends GridPane implements Initializable {
     }
 
 
-    public void AddInGrapheLineChart(ArrayList<Earthquake> filteredData){
 
-        dictionary.put(Integer.toString(filteredData.get(0).getDate().getYear()),1);
+
+    @FXML
+    LineChart GrapheLineChart;
+    @FXML
+    PieChart GraphePieChart = new PieChart();
+    @FXML
+    BarChart GrapheBarChart;
+
+    Map<String, Integer> DicoDataLine = new LinkedHashMap<>();
+
+    ObservableList< XYChart.Data<String, Number> > DataGrapheLineChart = FXCollections.observableArrayList();
+    XYChart.Series<String, Number> SeriesGrapheLineChart = new XYChart.Series<>(DataGrapheLineChart);
+
+    Map<String, Integer> DicoDataPie = new LinkedHashMap<>(5);
+    ObservableList<PieChart.Data> DataGraphePieChart = FXCollections.observableArrayList();
+
+    Map<String, Integer> DicoDataBar = new LinkedHashMap<>();
+    ObservableList< XYChart.Data<String, Number> > DataGrapheBarChart = FXCollections.observableArrayList();
+    XYChart.Series<String, Number> SeriesGrapheBarChart = new XYChart.Series<>(DataGrapheBarChart);
+
+
+
+
+    public void AddInGrapheLineChart(ArrayList<Earthquake> filteredData){
+        DicoDataLine.put(Integer.toString(filteredData.get(0).getDate().getYear()),1);
         for(int i = 0;i < filteredData.size();++i){
             boolean lock = false;
-            for(Map.Entry<String, Integer> entry : dictionary.entrySet()) {
+            for(Map.Entry<String, Integer> entry : DicoDataLine.entrySet()) {
                 if(Integer.toString(filteredData.get(i).getDate().getYear()).equals(entry.getKey())){
                     entry.setValue(entry.getValue()+1);
                     lock = true;
                 }
             }
             if(lock == false){
-                dictionary.put(Integer.toString(filteredData.get(i).getDate().getYear()),1);
+                DicoDataLine.put(Integer.toString(filteredData.get(i).getDate().getYear()),1);
             }
         }
-
-        for(Map.Entry<String, Integer> entry : dictionary.entrySet()) {
+        for(Map.Entry<String, Integer> entry : DicoDataLine.entrySet()) {
             XYChart.Data donne = new XYChart.Data(entry.getKey(), entry.getValue());
             DataGrapheLineChart.add(donne);
         }
         GrapheLineChart.getData().add(SeriesGrapheLineChart);
     }
 
-    @FXML
-    public void testo(){
-        ArrayList<Earthquake> filteredData = new ArrayList<>(database.getInitialData());
-        AddInGrapheLineChart(filteredData);
-        AddInGraphePieChart(filteredData);
-
-    }
-    public void AddInGraphePieChart(ArrayList<Earthquake> filteredData){
+    public void AddInGraphePieChart(List<Earthquake> filteredData){
         for(int i = 0;i < filteredData.size();++i){
             for(Map.Entry<String, Integer> entry : DicoDataPie.entrySet()) {
                 if(filteredData.get(i).getEpicentralIntensityQuality().name().equals(entry.getKey())){
@@ -122,15 +126,93 @@ public class Test extends GridPane implements Initializable {
                 }
             }
         }
-
         for (Map.Entry<String, Integer> entry : DicoDataPie.entrySet()) {
             DataGraphePieChart.add(new PieChart.Data(entry.getKey(), entry.getValue()));
         }
-
         GraphePieChart.setData(DataGraphePieChart);
+    }
 
+    public void AddInGrapheBarChart(ArrayList<Earthquake> filteredData){
+        DicoDataBar.put(Double.toString(filteredData.get(0).getEpicentralIntensity()),1);
+        for(int i = 0;i < filteredData.size();++i){
+            boolean lock = false;
+            for(Map.Entry<String, Integer> entry : DicoDataBar.entrySet()) {
+                if(Double.toString(filteredData.get(i).getEpicentralIntensity()).equals(entry.getKey())){
+                    entry.setValue(entry.getValue()+1);
+                    lock = true;
+                }
+            }
+            if(lock == false){
+                DicoDataBar.put(Double.toString(filteredData.get(i).getEpicentralIntensity()),1);
+            }
+        }
+
+        for(Map.Entry<String, Integer> entry : DicoDataBar.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+        DicoDataBar = SortDico(DicoDataBar);
+
+        for(Map.Entry<String, Integer> entry : DicoDataBar.entrySet()) {
+            XYChart.Data donne = new XYChart.Data(entry.getKey(), entry.getValue());
+            DataGrapheBarChart.add(donne);
+        }
+        GrapheBarChart.getData().add(SeriesGrapheBarChart);
+    }
+    @FXML
+    public void testo(){
+        clearGraphe();
+        ArrayList<Earthquake> filteredData = new ArrayList<>(database.getInitialData());
+        AddInGrapheLineChart(filteredData);
+        AddInGraphePieChart(filteredData);
+        AddInGrapheBarChart(filteredData);
+    }
+
+    public void clearGraphe(){
+        DataGrapheLineChart.clear();
+        GrapheLineChart.getData().clear();
+
+        DataGraphePieChart.clear();
+        GraphePieChart.getData().clear();
+
+        DataGrapheBarChart.clear();
+        GrapheBarChart.getData().clear();
 
     }
 
+    public Map<String, Integer> SortDico(Map<String, Integer> dico){
 
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(dico.entrySet());
+
+        entries.sort(Map.Entry.comparingByKey());
+
+        Map<String, Integer> sortedDico = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : entries) {
+            sortedDico.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedDico;
+        /*
+        boolean first = true;
+        double MinKey = 15;
+        int MinValues = 0;
+        double Cap = 0;
+
+        while(SortDic.size() < Dico.size()) {
+            for (Map.Entry<String, Integer> entry : Dico.entrySet()) {
+                System.out.println(
+                        "Trace : " + MinKey + " > " +
+                                Double.valueOf(entry.getKey()) + " && " + Double.valueOf(entry.getKey()) + " > " + Cap
+                );
+                if (MinKey > Double.valueOf(entry.getKey()) && Double.valueOf(entry.getKey()) > Cap) {
+                    MinKey = Double.valueOf(entry.getKey());
+                    MinValues = entry.getValue();
+                }
+            }
+            Cap = Double.valueOf(MinKey);
+            SortDic.put(Double.toString(MinKey), MinValues);
+        }
+
+         */
+        //return SortDic;
+    }
 }
