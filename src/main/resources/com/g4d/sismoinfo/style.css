@@ -1,0 +1,22 @@
+.chart-bar {
+    -fx-background-color: #00F0FF;
+}
+.bar-chart {
+    -fx-background-color: #00F4FF;
+}
+.chart-series-line {
+    -fx-background-radius: 2px;
+    -fx-stroke: #000000;
+}
+.chart-line-symbol {
+    -fx-background-color: transparent;
+    -fx-background-image: url('Astérisk.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 7px;
+    -fx-background-position: center;
+}
+#chartScatter .chart-symbol {
+    -fx-background-radius: 2px ;
+    -fx-padding: 2px ;
+    -fx-background-color: #000000;
+}

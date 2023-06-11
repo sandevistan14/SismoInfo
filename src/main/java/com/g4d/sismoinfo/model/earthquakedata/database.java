@@ -40,7 +40,6 @@ public class database {
             "Intensité épicentrale",
             "Qualité intensité épicentrale"
     );
-
     public static void readCSV(File csvFile) {
         if (csvFile == null) {return;}
         CSVParser parser = null;

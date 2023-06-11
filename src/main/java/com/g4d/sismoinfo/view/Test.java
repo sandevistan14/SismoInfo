@@ -34,28 +34,6 @@ public class Test extends GridPane implements Initializable {
     @FXML
     Label max;
 
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        csvFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
-        epicentralIntensitySlider.setLowValue(2);
-        epicentralIntensitySlider.setHighValue(12);
-        epicentralIntensitySlider.lowValueProperty().addListener((obs, oldval, newVal) ->
-                epicentralIntensitySlider.setLowValue(epicentralIntensitySlider.lowValueProperty().intValue()));
-        epicentralIntensitySlider.highValueProperty().addListener((obs, oldval, newVal) ->
-                epicentralIntensitySlider.setHighValue(epicentralIntensitySlider.highValueProperty().intValue()));
-        min.textProperty().bind(epicentralIntensitySlider.lowValueProperty().asString());
-        max.textProperty().bind(epicentralIntensitySlider.highValueProperty().asString());
-
-        DicoDataPie.put("A",0);
-        DicoDataPie.put("B",0);
-        DicoDataPie.put("C",0);
-        DicoDataPie.put("K",0);
-        DicoDataPie.put("E",0);
-        DicoDataPie.put("I",0);
-    }
-
     @FXML
     protected void csvButtonAction (ActionEvent event){
         Button sourceOfEvent = (Button) event.getSource();
@@ -72,6 +50,30 @@ public class Test extends GridPane implements Initializable {
         System.out.println(sourceOfEvent.getValue());
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        csvFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
+        epicentralIntensitySlider.setLowValue(2);
+        epicentralIntensitySlider.setHighValue(12);
+        epicentralIntensitySlider.lowValueProperty().addListener((obs, oldval, newVal) ->
+                epicentralIntensitySlider.setLowValue(epicentralIntensitySlider.lowValueProperty().intValue()));
+        epicentralIntensitySlider.highValueProperty().addListener((obs, oldval, newVal) ->
+                epicentralIntensitySlider.setHighValue(epicentralIntensitySlider.highValueProperty().intValue()));
+        min.textProperty().bind(epicentralIntensitySlider.lowValueProperty().asString());
+        max.textProperty().bind(epicentralIntensitySlider.highValueProperty().asString());
+
+
+
+
+
+
+
+
+
+
+        InitPieGraphData();
+    }
+
 
 
 
@@ -81,6 +83,8 @@ public class Test extends GridPane implements Initializable {
     PieChart GraphePieChart = new PieChart();
     @FXML
     BarChart GrapheBarChart;
+    @FXML
+    ScatterChart GrapheScatterChart;
 
     Map<String, Integer> DicoDataLine = new LinkedHashMap<>();
 
@@ -94,8 +98,18 @@ public class Test extends GridPane implements Initializable {
     ObservableList< XYChart.Data<String, Number> > DataGrapheBarChart = FXCollections.observableArrayList();
     XYChart.Series<String, Number> SeriesGrapheBarChart = new XYChart.Series<>(DataGrapheBarChart);
 
+    ObservableList< XYChart.Data<Number, Number> > DataGrapheScatterChart = FXCollections.observableArrayList();
+    //XYChart.Series<Number, Number> SeriesGrapheScatterChart = new XYChart.Series<>(DataGrapheScatterChart);
+    XYChart.Series SeriesGrapheScatterChart = new XYChart.Series();
 
-
+    public void InitPieGraphData(){
+        DicoDataPie.put("A",0);
+        DicoDataPie.put("B",0);
+        DicoDataPie.put("C",0);
+        DicoDataPie.put("K",0);
+        DicoDataPie.put("E",0);
+        DicoDataPie.put("I",0);
+    }
 
     public void AddInGrapheLineChart(ArrayList<Earthquake> filteredData){
         DicoDataLine.put(Integer.toString(filteredData.get(0).getDate().getYear()),1);
@@ -155,6 +169,14 @@ public class Test extends GridPane implements Initializable {
         }
         GrapheBarChart.getData().add(SeriesGrapheBarChart);
     }
+
+    public void AddInGrapheScatterChart(ArrayList<Earthquake> filteredData){
+        for (Earthquake earthquake : filteredData) {
+            SeriesGrapheScatterChart.getData().add(new XYChart.Data<>(String.valueOf(earthquake.getDate().getYear()), earthquake.getEpicentralIntensity()));
+        }
+        GrapheScatterChart.getData().add(SeriesGrapheScatterChart);
+    }
+
     @FXML
     public void testo(){
         clearGraphe();
@@ -162,6 +184,7 @@ public class Test extends GridPane implements Initializable {
         AddInGrapheLineChart(filteredData);
         AddInGraphePieChart(filteredData);
         AddInGrapheBarChart(filteredData);
+        AddInGrapheScatterChart(filteredData);
     }
 
     public void clearGraphe(){
@@ -181,7 +204,6 @@ public class Test extends GridPane implements Initializable {
         DicoDataBar.clear();
         DataGrapheBarChart.clear();
         SeriesGrapheBarChart.getData().clear();
-
     }
 
     public Map<String, Integer> SortDico(Map<String, Integer> dico){
