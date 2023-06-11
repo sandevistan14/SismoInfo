@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
@@ -48,6 +49,14 @@
                 <Label text="Localisation" />
                 <ChoiceBox fx:id="choiceBox" />
             </HBox>
+            <VBox spacing ="10" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                <Label text="Rayon de recherche (Coordonnées WGS 84)"/>
+                <HBox spacing="10">
+                    <TextField fx:id="longitudeTextField" text="Longitude"/>
+                    <TextField fx:id="latitudeTextField" text="Latitude"/>
+                    <TextField fx:id="radiusTextField" text="Rayon en km"/>
+                </HBox>
+            </VBox>
             <HBox alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="6">
                 <Button fx:id="search" text="Rechercher" onAction="#handleRechercherAction" />
             </HBox>

@@ -14,6 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -25,6 +26,15 @@ public class HomeController {
     private static final double WINDOW_HEIGHT = 550; // Hauteur de la fenêtre
     private final String[] regionsFrance = {"Auvergne-Rhône-Alpes", "Bourgogne-Franche-Comté", "Bretagne", "Centre-Val de Loire", "Corse", "Grand Est", "Hauts-de-France", "Île-de-France", "Normandie", "Nouvelle-Aquitaine", "Occitanie", "Pays de la Loire", "Provence-Alpes-Côte d'Azur"};
     private boolean fileInsert = false;
+
+    @FXML
+    private TextField longitudeTextField;
+
+    @FXML
+    private TextField latitudeTextField;
+
+    @FXML
+    private TextField radiusTextField;
 
     @FXML
     DatePicker after;
@@ -45,7 +55,24 @@ public class HomeController {
     public void initialize() {
         choiceBox.setItems(FXCollections.observableArrayList(regionsFrance));
         choiceBox.setOnAction(this::handleChoiceBoxAction);
+
+        longitudeTextField.setOnAction(this::handleTextFieldAction);
+        latitudeTextField.setOnAction(this::handleTextFieldAction);
+        radiusTextField.setOnAction(this::handleTextFieldAction);
     }
+
+    @FXML
+    private void handleTextFieldAction(ActionEvent event) {
+        String longitude = longitudeTextField.getText();
+        String latitude = latitudeTextField.getText();
+        String radius = radiusTextField.getText();
+
+        // Do something with the retrieved values
+        System.out.println("Longitude: " + longitude);
+        System.out.println("Latitude: " + latitude);
+        System.out.println("Rayon: " + radius);
+    }
+
 
     @FXML
     protected void DateAction (ActionEvent event){
