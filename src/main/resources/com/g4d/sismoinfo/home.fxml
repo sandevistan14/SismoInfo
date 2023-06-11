@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<!-- <?import com.example.controls.RangeSlider?> -->
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
@@ -56,6 +57,10 @@
                     <TextField fx:id="latitudeTextField" text="Latitude"/>
                     <TextField fx:id="radiusTextField" text="Rayon en km"/>
                 </HBox>
+            </VBox>
+            <VBox spacing ="10" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                <Label text="Intensité macrosismique"/>
+                <!-- <RangeSlider fx:id="epicentralIntensitySlider" highValue="12.0" lowValue="2.0" majorTickUnit="2.0" max="12.0" min="2.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" />   -->
             </VBox>
             <HBox alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="6">
                 <Button fx:id="search" text="Rechercher" onAction="#handleRechercherAction" />
