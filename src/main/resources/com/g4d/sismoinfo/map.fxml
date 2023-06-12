@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.control.Button?>
-
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.MapController" stylesheets="@styles.css">
+<BorderPane stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.MapController">
     <top>
         <MenuBar>
             <Menu text="Accueil">
-                <MenuItem text="Accueil" onAction="#handleMenuAction"/>
+                <MenuItem onAction="#handleMenuAction" text="Accueil" />
             </Menu>
             <Menu text="Carte">
-                <MenuItem text="Carte" onAction="#handleMenuAction"/>
+                <MenuItem onAction="#handleMenuAction" text="Carte" />
             </Menu>
             <Menu text="Dashboard">
-                <MenuItem text="Dashboard" onAction="#handleMenuAction"/>
+                <MenuItem onAction="#handleMenuAction" text="Dashboard" />
             </Menu>
         </MenuBar>
     </top>
 </BorderPane>
-

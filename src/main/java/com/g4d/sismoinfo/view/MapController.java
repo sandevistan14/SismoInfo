@@ -1,18 +1,22 @@
-package com.g4d.sismoinfo;
+package com.g4d.sismoinfo.view;
 
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class MapController {
-    private static final double WINDOW_WIDTH = 800; // Largeur de la fenêtre
-    private static final double WINDOW_HEIGHT = 550; // Hauteur de la fenêtre
+    Screen screen = Screen.getPrimary();
+    Rectangle2D bounds = screen.getVisualBounds();
+    private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
+    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
 
     @FXML
     private void handleMenuAction(ActionEvent event) throws IOException {

@@ -1,90 +1,60 @@
 package com.g4d.sismoinfo.view;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.g4d.sismoinfo.model.earthquakedata.Earthquake;
 import com.g4d.sismoinfo.model.earthquakedata.database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
-import org.controlsfx.control.RangeSlider;
-import org.controlsfx.control.spreadsheet.GridBase;
+import javafx.scene.control.MenuItem;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
-import java.io.File;
-import java.lang.reflect.Array;
-import java.net.URL;
-import java.time.LocalDate;
-import java.util.*;
-
-public class Test extends GridPane implements Initializable {
-    FileChooser csvFileChooser = new FileChooser();
-    File csvFile;
+public class DashboardController {
+    Screen screen = Screen.getPrimary();
+    Rectangle2D bounds = screen.getVisualBounds();
+    private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
+    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
 
     @FXML
-    RangeSlider epicentralIntensitySlider;
+    private void handleMenuAction(ActionEvent event) throws IOException {
+        MenuItem menuItem = (MenuItem) event.getSource();
+        String menuText = menuItem.getText();
 
-    @FXML
-    Label min;
-    @FXML
-    Label max;
+        Stage stage = (Stage) menuItem.getParentPopup().getOwnerWindow();
 
-    @FXML
-    protected void csvButtonAction (ActionEvent event){
-        Button sourceOfEvent = (Button) event.getSource();
-        csvFile = csvFileChooser.showOpenDialog(sourceOfEvent.getScene().getWindow());
-        database.readCSV(csvFile);
-        for (Earthquake quake : database.initialData){
-
-        };
-    }
-
-    @FXML
-    protected void DateAction (ActionEvent event){
-        DatePicker sourceOfEvent = (DatePicker) event.getSource();
-        System.out.println(sourceOfEvent.getValue());
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        csvFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
-        epicentralIntensitySlider.setLowValue(2);
-        epicentralIntensitySlider.setHighValue(12);
-        epicentralIntensitySlider.lowValueProperty().addListener((obs, oldval, newVal) ->
-                epicentralIntensitySlider.setLowValue(epicentralIntensitySlider.lowValueProperty().intValue()));
-        epicentralIntensitySlider.highValueProperty().addListener((obs, oldval, newVal) ->
-                epicentralIntensitySlider.setHighValue(epicentralIntensitySlider.highValueProperty().intValue()));
-        min.textProperty().bind(epicentralIntensitySlider.lowValueProperty().asString());
-        max.textProperty().bind(epicentralIntensitySlider.highValueProperty().asString());
-
-
-
-
-
-
-
-
-
-
-        InitPieGraphData();
+        if (menuText.equals("Accueil")) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/home.fxml"));
+            Parent homeRoot = fxmlLoader.load();
+            Scene scene = new Scene(homeRoot,WINDOW_WIDTH,WINDOW_HEIGHT);
+            stage.setScene(scene);
+        } else if (menuText.equals("Carte")) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/map.fxml"));
+            Parent mapRoot = fxmlLoader.load();
+            Scene scene = new Scene(mapRoot,WINDOW_WIDTH,WINDOW_HEIGHT);
+            stage.setScene(scene);
+        } else if (menuText.equals("Dashboard")) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/dashboard.fxml"));
+            Parent dashboardRoot = fxmlLoader.load();
+            Scene scene = new Scene(dashboardRoot,WINDOW_WIDTH,WINDOW_HEIGHT);
+            stage.setScene(scene);
+        }
+        stage.show();
     }
 
 
 
-
-    @FXML
-    LineChart GrapheLineChart;
-    @FXML
-    PieChart GraphePieChart = new PieChart();
-    @FXML
-    BarChart GrapheBarChart;
-    @FXML
-    ScatterChart GrapheScatterChart;
 
     Map<String, Integer> DicoDataLine = new LinkedHashMap<>();
 
@@ -98,10 +68,18 @@ public class Test extends GridPane implements Initializable {
     ObservableList< XYChart.Data<String, Number> > DataGrapheBarChart = FXCollections.observableArrayList();
     XYChart.Series<String, Number> SeriesGrapheBarChart = new XYChart.Series<>(DataGrapheBarChart);
 
-    ObservableList< XYChart.Data<Number, Number> > DataGrapheScatterChart = FXCollections.observableArrayList();
-    //XYChart.Series<Number, Number> SeriesGrapheScatterChart = new XYChart.Series<>(DataGrapheScatterChart);
     XYChart.Series SeriesGrapheScatterChart = new XYChart.Series();
 
+    @FXML
+    LineChart GrapheLineChart;
+    @FXML
+    PieChart GraphePieChart = new PieChart();
+    @FXML
+    BarChart GrapheBarChart;
+    @FXML
+    ScatterChart GrapheScatterChart;
+
+    @FXML
     public void InitPieGraphData(){
         DicoDataPie.put("A",0);
         DicoDataPie.put("B",0);
@@ -133,6 +111,7 @@ public class Test extends GridPane implements Initializable {
     }
 
     public void AddInGraphePieChart(List<Earthquake> filteredData){
+        InitPieGraphData();
         for(int i = 0;i < filteredData.size();++i){
             for(Map.Entry<String, Integer> entry : DicoDataPie.entrySet()) {
                 if(filteredData.get(i).getEpicentralIntensityQuality().name().equals(entry.getKey())){
@@ -177,8 +156,10 @@ public class Test extends GridPane implements Initializable {
         GrapheScatterChart.getData().add(SeriesGrapheScatterChart);
     }
 
+    boolean test = false;
+
     @FXML
-    public void testo(){
+    public void InitGraphe(){
         clearGraphe();
         ArrayList<Earthquake> filteredData = new ArrayList<>(database.getInitialData());
         AddInGrapheLineChart(filteredData);
@@ -204,9 +185,12 @@ public class Test extends GridPane implements Initializable {
         DicoDataBar.clear();
         DataGrapheBarChart.clear();
         SeriesGrapheBarChart.getData().clear();
+
+        SeriesGrapheScatterChart.getData().clear();
+        GrapheScatterChart.getData().clear();
     }
 
-    public Map<String, Integer> SortDico(Map<String, Integer> dico){
+    public static Map<String, Integer> SortDico(Map<String, Integer> dico){
 
         List<Map.Entry<String, Integer>> entries = new ArrayList<>(dico.entrySet());
 

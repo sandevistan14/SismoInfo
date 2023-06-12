@@ -1,12 +1,19 @@
-package com.g4d.sismoinfo;
+package com.g4d.sismoinfo.view;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
+import com.g4d.sismoinfo.model.earthquakedata.Earthquake;
+import com.g4d.sismoinfo.model.earthquakedata.database;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,13 +24,18 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.RangeSlider;
+import javafx.stage.Screen;
 
-public class HomeController {
-
-    private static final double WINDOW_WIDTH = 800; // Largeur de la fenêtre
-    private static final double WINDOW_HEIGHT = 550; // Hauteur de la fenêtre
+public class HomeController  extends GridPane implements Initializable {
+    Screen screen = Screen.getPrimary();
+    Rectangle2D bounds = screen.getVisualBounds();
+    private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
+    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
     private final String[] regionsFrance = {"Auvergne-Rhône-Alpes", "Bourgogne-Franche-Comté", "Bretagne", "Centre-Val de Loire", "Corse", "Grand Est", "Hauts-de-France", "Île-de-France", "Normandie", "Nouvelle-Aquitaine", "Occitanie", "Pays de la Loire", "Provence-Alpes-Côte d'Azur"};
     private boolean fileInsert = false;
 
@@ -41,6 +53,43 @@ public class HomeController {
 
     @FXML
     DatePicker before;
+
+    FileChooser csvFileChooser = new FileChooser();
+    File csvFile;
+
+    @FXML
+    RangeSlider epicentralIntensitySlider;
+
+    @FXML
+    Label min;
+    @FXML
+    Label max;
+
+    @FXML
+    protected void csvButtonAction (ActionEvent event){
+        Button sourceOfEvent = (Button) event.getSource();
+        csvFile = csvFileChooser.showOpenDialog(sourceOfEvent.getScene().getWindow());
+        database.readCSV(csvFile);
+        for (Earthquake quake : database.initialData){
+
+        };
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        csvFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
+        epicentralIntensitySlider.setLowValue(2);
+        epicentralIntensitySlider.setHighValue(12);
+        epicentralIntensitySlider.lowValueProperty().addListener((obs, oldval, newVal) ->
+                epicentralIntensitySlider.setLowValue(epicentralIntensitySlider.lowValueProperty().intValue()));
+        epicentralIntensitySlider.highValueProperty().addListener((obs, oldval, newVal) ->
+                epicentralIntensitySlider.setHighValue(epicentralIntensitySlider.highValueProperty().intValue()));
+        min.textProperty().bind(epicentralIntensitySlider.lowValueProperty().asString());
+        max.textProperty().bind(epicentralIntensitySlider.highValueProperty().asString());
+    }
+
+
+
 
     @FXML
     private ChoiceBox<String> choiceBox;

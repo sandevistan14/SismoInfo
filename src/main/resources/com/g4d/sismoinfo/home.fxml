@@ -1,70 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<!-- <?import com.example.controls.RangeSlider?> -->
-
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.g4d.sismoinfo.HomeController" stylesheets="@styles.css">
+<BorderPane prefWidth="689.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.HomeController">
     <top>
         <MenuBar>
             <Menu text="Accueil">
-                <MenuItem text="Accueil" onAction="#handleMenuAction"/>
+                <MenuItem onAction="#handleMenuAction" text="Accueil" />
             </Menu>
             <Menu text="Carte">
-                <MenuItem text="Carte" onAction="#handleMenuAction"/>
+                <MenuItem onAction="#handleMenuAction" text="Carte" />
             </Menu>
             <Menu text="Dashboard">
-                <MenuItem text="Dashboard" onAction="#handleMenuAction"/>
+                <MenuItem onAction="#handleMenuAction" text="Dashboard" />
             </Menu>
         </MenuBar>
     </top>
     <center>
         <GridPane alignment="TOP_CENTER" hgap="20" vgap="40">
             <padding>
-                <Insets top="60" right="0" bottom="0" left="0" />
+                <Insets bottom="0" left="0" right="0" top="60" />
             </padding>
-            <HBox fx:id="imageContainer" alignment="center" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0" >
-                <Button fx:id="insertButton" text="Insérer un fichier CSV" onAction="#handleInsertAction" />
+            <HBox fx:id="imageContainer" alignment="center" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Button fx:id="insertButton" onAction="#csvButtonAction" text="Insérer un fichier CSV" />
                 <ImageView fx:id="imageView">
-                    <Image url="@notValid.png" requestedWidth="25" requestedHeight="25" />
+                    <Image requestedHeight="25" requestedWidth="25" url="@notValid.png" />
                 </ImageView>
             </HBox>
            <HBox spacing="20" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <Label text="Date : "/>
-                <Label text="De"/>
+                <Label text="Date : " />
+                <Label text="De" />
                 <DatePicker fx:id="after" onAction="#DateAction" />
-                <Label text="À"/>
+                <Label text="À" />
                 <DatePicker fx:id="before" onAction="#DateAction" />
             </HBox>
             <HBox spacing="50" GridPane.columnIndex="0" GridPane.rowIndex="2">
                 <Label text="Localisation" />
                 <ChoiceBox fx:id="choiceBox" />
             </HBox>
-            <VBox spacing ="10" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                <Label text="Rayon de recherche (Coordonnées WGS 84)"/>
+            <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                <Label text="Rayon de recherche (Coordonnées WGS 84)" />
                 <HBox spacing="10">
-                    <TextField fx:id="longitudeTextField" text="Longitude"/>
-                    <TextField fx:id="latitudeTextField" text="Latitude"/>
-                    <TextField fx:id="radiusTextField" text="Rayon en km"/>
+                    <TextField fx:id="longitudeTextField" text="Longitude" />
+                    <TextField fx:id="latitudeTextField" text="Latitude" />
+                    <TextField fx:id="radiusTextField" text="Rayon en km" />
                 </HBox>
             </VBox>
-            <VBox spacing ="10" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                <Label text="Intensité macrosismique"/>
-                <!-- <RangeSlider fx:id="epicentralIntensitySlider" highValue="12.0" lowValue="2.0" majorTickUnit="2.0" max="12.0" min="2.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" />   -->
+            <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                <Label text="Intensité macrosismique" />
+                <RangeSlider fx:id="epicentralIntensitySlider" highValue="12.0" lowValue="2.0" majorTickUnit="2.0" max="12.0" min="2.0" minorTickCount="1" prefHeight="37.0" prefWidth="199.0" showTickLabels="true" showTickMarks="true" />
+                <Label fx:id="min" text="Label" />
+                <Label fx:id="max" text="Label" />
             </VBox>
             <HBox alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="6">
-                <Button fx:id="search" text="Rechercher" onAction="#handleRechercherAction" />
+                <Button fx:id="search" onAction="#handleRechercherAction" text="Rechercher" />
             </HBox>
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
     </center>
 </BorderPane>
