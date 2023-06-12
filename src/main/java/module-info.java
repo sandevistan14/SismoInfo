@@ -16,8 +16,6 @@ module com.g4d.sismoinfo {
     opens com.g4d.sismoinfo.model to javafx.fxml;
     exports com.g4d.sismoinfo.view;
     opens com.g4d.sismoinfo.view to javafx.fxml;
-    exports com.g4d.sismoinfo.earthquakedata;
-    opens com.g4d.sismoinfo.earthquakedata to javafx.fxml;
-    exports map;
-    opens map to javafx.fxml;
+    exports com.g4d.sismoinfo.model.earthquakedata;
+    opens com.g4d.sismoinfo.model.earthquakedata to javafx.fxml;
 }

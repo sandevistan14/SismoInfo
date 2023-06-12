@@ -85,7 +85,6 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-    </dependencies>
         <dependency>
             <groupId>com.gluonhq</groupId>
             <artifactId>substrate</artifactId>
@@ -119,7 +118,7 @@
             <artifactId>maps</artifactId>
             <version>1.0.4</version>
         </dependency>
-</dependencies>
+    </dependencies>
 
     <repositories>
         <repository>

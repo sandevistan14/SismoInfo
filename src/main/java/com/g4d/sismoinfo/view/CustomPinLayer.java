@@ -1,4 +1,4 @@
-package map;
+package com.g4d.sismoinfo.view;
 import com.gluonhq.maps.MapLayer;
 import com.gluonhq.maps.MapPoint;
 

@@ -1,11 +1,10 @@
-package map;
+package com.g4d.sismoinfo.view;
+import com.g4d.sismoinfo.view.CustomPinLayer;
 import com.gluonhq.maps.MapLayer;
 import com.gluonhq.maps.MapPoint;
 import com.gluonhq.maps.MapView;
 import javafx.application.Application;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -56,7 +55,7 @@ public class Map extends Application {
 
         root.getChildren().add(mapView);
 
-        Scene scene = new Scene(root, 1000, 1000);
+        Scene scene = new Scene(root, 500, 500);
 
         stage.setScene(scene);
         stage.show();
