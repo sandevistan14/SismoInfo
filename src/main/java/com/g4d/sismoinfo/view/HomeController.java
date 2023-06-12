@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import com.g4d.sismoinfo.model.earthquakedata.Earthquake;
 import com.g4d.sismoinfo.model.earthquakedata.database;
 import javafx.collections.FXCollections;
@@ -28,8 +27,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.RangeSlider;
 import javafx.stage.Screen;
+import org.controlsfx.control.RangeSlider;
+import java.util.List;
+
+
 
 public class HomeController  extends GridPane implements Initializable {
     Screen screen = Screen.getPrimary();
@@ -38,6 +40,7 @@ public class HomeController  extends GridPane implements Initializable {
     private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
     private final String[] regionsFrance = {"Auvergne-Rhône-Alpes", "Bourgogne-Franche-Comté", "Bretagne", "Centre-Val de Loire", "Corse", "Grand Est", "Hauts-de-France", "Île-de-France", "Normandie", "Nouvelle-Aquitaine", "Occitanie", "Pays de la Loire", "Provence-Alpes-Côte d'Azur"};
     private boolean fileInsert = false;
+    public ArrayList<String> filteredDataList = new ArrayList<>();
 
     @FXML
     private TextField longitudeTextField;
@@ -173,16 +176,29 @@ public class HomeController  extends GridPane implements Initializable {
         }
         stage.show();
     }
+    private List<Earthquake> earthquakeData = new ArrayList<>(); // Assurez-vous d'importer la classe Earthquake si nécessaire
 
-   @FXML
+
+    @FXML
     private void handleRechercherAction(ActionEvent event) throws IOException {
         if (fileInsert) {
             Button button = (Button) event.getSource();
             Stage stage = (Stage) button.getScene().getWindow();
+            String latitude = latitudeTextField.getText();
+            String longitude = longitudeTextField.getText();
+            String radius = radiusTextField.getText();
 
+            filteredDataList.add(latitude + "," + longitude + "," + radius);
+
+            // Appeler la méthode updateMap() du MapController
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/map.fxml"));
             Parent mapRoot = fxmlLoader.load();
             Scene mapScene = new Scene(mapRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+            MapController mapController = fxmlLoader.getController();
+            mapController.setFilteredDataList(filteredDataList);
+            mapController.updateMap(earthquakeData);
+
             stage.setScene(mapScene);
             stage.show();
         }
