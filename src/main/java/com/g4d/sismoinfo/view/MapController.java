@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.gluonhq.maps.MapLayer;
 import com.gluonhq.maps.MapPoint;
 import com.gluonhq.maps.MapView;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,11 +21,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+
 public class MapController implements Initializable {
     Screen screen = Screen.getPrimary();
     Rectangle2D bounds = screen.getVisualBounds();
     private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
     private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
+    @FXML
+    VBox ZoneMap;
 
     @FXML
     private void handleMenuAction(ActionEvent event) throws IOException {
@@ -52,23 +56,16 @@ public class MapController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    VBox ZoneMap = new VBox();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.setProperty("javafx.platform", "desktop");
-        System.setProperty("http.agent", "Gluon Mobile/1.0.3");
 
         MapView mapView = new MapView();
+        mapView.setPrefSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
         MapPoint centre = new MapPoint(46.227638, 2.213749);
-        mapView.flyTo(0, centre, 0.1);
-
-        mapView.setCenter(35.91466, 10.312499);
         mapView.setZoom(5);
-
-
-        /*
+        /* point when click (marche pas)
         mapView.setOnMouseClicked(e -> {
             MapPoint centerPoint = mapView.getCenter();
 
@@ -97,9 +94,11 @@ public class MapController implements Initializable {
             mapView.flyTo(0, clickedPoint, 0.1);
         });
         */
-
-
-
+        mapView.flyTo(0, centre, 0.1);
         ZoneMap.getChildren().add(mapView);
     }
+    public void updateMap() {
+
+    }
+
 }
