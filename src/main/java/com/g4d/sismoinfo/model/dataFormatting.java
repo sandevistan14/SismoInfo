@@ -8,7 +8,7 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
 public class dataFormatting {
-    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("[yyy/MM/dd][yyyy/MM/dd]");
     private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H' h'[' 'm' min'[' 's' sec']");
 
     private final static String DEFAULT_MONTH_AND_DAY = "01";
@@ -25,8 +25,10 @@ public class dataFormatting {
     public static LocalDate dateParsing(String dateString){
         String exploitableDateString = null;
         switch (dateString.length()){
+            case 4:
             case 5:
                 exploitableDateString = dateString+DEFAULT_MONTH_AND_DAY+"/"+DEFAULT_MONTH_AND_DAY; break;
+            case 6:
             case 7:
                 exploitableDateString = dateString+"/"+DEFAULT_MONTH_AND_DAY; break;
             default:

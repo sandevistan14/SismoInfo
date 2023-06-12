@@ -70,9 +70,6 @@ public class HomeController  extends GridPane implements Initializable {
         Button sourceOfEvent = (Button) event.getSource();
         csvFile = csvFileChooser.showOpenDialog(sourceOfEvent.getScene().getWindow());
         database.readCSV(csvFile);
-        for (Earthquake quake : database.initialData){
-
-        };
     }
 
     @Override
