@@ -8,6 +8,7 @@ module com.g4d.sismoinfo {
     requires eu.hansolo.tilesfx;
     requires org.apache.commons.csv;
     requires javafx.graphics;
+    requires com.gluonhq.maps;
 
     opens com.g4d.sismoinfo to javafx.fxml;
     exports com.g4d.sismoinfo;
@@ -15,4 +16,8 @@ module com.g4d.sismoinfo {
     opens com.g4d.sismoinfo.model to javafx.fxml;
     exports com.g4d.sismoinfo.view;
     opens com.g4d.sismoinfo.view to javafx.fxml;
+    exports com.g4d.sismoinfo.earthquakedata;
+    opens com.g4d.sismoinfo.earthquakedata to javafx.fxml;
+    exports map;
+    opens map to javafx.fxml;
 }
