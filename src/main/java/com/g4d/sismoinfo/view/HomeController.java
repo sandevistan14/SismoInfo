@@ -33,7 +33,6 @@ public class HomeController  extends GridPane implements Initializable {
     Rectangle2D bounds = screen.getVisualBounds();
     private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
     private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
-    private final String[] regionsFrance = {"Auvergne-Rhône-Alpes", "Bourgogne-Franche-Comté", "Bretagne", "Centre-Val de Loire", "Corse", "Grand Est", "Hauts-de-France", "Île-de-France", "Normandie", "Nouvelle-Aquitaine", "Occitanie", "Pays de la Loire", "Provence-Alpes-Côte d'Azur"};
     private boolean fileInsert = false;
 
     @FXML
@@ -152,25 +151,9 @@ public class HomeController  extends GridPane implements Initializable {
         imageView.setPreserveRatio(true); // Conserver le ratio d'aspect de l'image
     }
 
-
     @FXML
-    private void handleMenuAction(ActionEvent event) throws IOException {
-        MenuItem menuItem = (MenuItem) event.getSource();
-        String menuText = menuItem.getText();
-
-        Stage stage = (Stage) menuItem.getParentPopup().getOwnerWindow();
-
-        if (menuText.equals("Accueil")) {
-            Scene scene = ViewLoaders.getHomeView();
-            stage.setScene(scene);
-        } else if (menuText.equals("Carte")) {
-//            Scene scene = ViewLoaders.getMapView();
-//            stage.setScene(scene);
-        } else if (menuText.equals("Dashboard")) {
-            Scene scene = ViewLoaders.getDashboardView();
-            stage.setScene(scene);
-        }
-        stage.show();
+    private void handleViewChange(ActionEvent event) {
+        ViewLoaders.loadView(event);
     }
 
    @FXML

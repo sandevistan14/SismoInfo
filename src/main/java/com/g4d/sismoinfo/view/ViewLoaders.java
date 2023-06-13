@@ -1,10 +1,13 @@
 package com.g4d.sismoinfo.view;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -65,4 +68,20 @@ public class ViewLoaders {
 //    public static Scene getMapView() {
 //        return MapView;
 //    }
+
+    public static void loadView(ActionEvent event){
+        Button sourceOfEvent = (Button) event.getSource();
+        Stage stage = (Stage) sourceOfEvent.getScene().getWindow();
+        if (sourceOfEvent.getUserData().equals("home")) {
+            Scene scene = ViewLoaders.getHomeView();
+            stage.setScene(scene);
+        } else if (sourceOfEvent.getUserData().equals("map")) {
+//            Scene scene = ViewLoaders.getMapView();
+//            stage.setScene(scene);
+        } else if (sourceOfEvent.getUserData().equals("dashboard")) {
+            Scene scene = ViewLoaders.getDashboardView();
+            stage.setScene(scene);
+        }
+        stage.show();
+    }
 }

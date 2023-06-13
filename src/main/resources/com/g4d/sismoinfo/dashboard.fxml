@@ -6,17 +6,13 @@
 
 <BorderPane prefHeight="934.0" prefWidth="1416.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.DashboardController">
     <top>
-        <MenuBar>
-            <Menu text="Accueil">
-                <MenuItem onAction="#handleMenuAction" text="Accueil" />
-            </Menu>
-            <Menu text="Carte">
-                <MenuItem onAction="#handleMenuAction" text="Carte" />
-            </Menu>
-            <Menu text="Dashboard">
-                <MenuItem onAction="#handleMenuAction" text="Dashboard" />
-            </Menu>
-        </MenuBar>
+        <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="689.0" styleClass="top-bar" BorderPane.alignment="CENTER">
+            <children>
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleViewChange" styleClass="top-button" text="Accueil" userData="home" />
+                <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleViewChange" styleClass="top-button" text="Carte" userData="map" />
+                <Button alignment="CENTER" contentDisplay="CENTER" layoutX="99.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleViewChange" styleClass="top-button" text="Tableau de Bord" userData="dashboard" />
+            </children>
+        </HBox>
     </top>
    <center>
    <VBox prefHeight="697.0" prefWidth="896.0">

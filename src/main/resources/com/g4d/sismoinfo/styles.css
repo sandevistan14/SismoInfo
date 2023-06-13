@@ -4,28 +4,21 @@
 }
 
 /* Style pour la barre de menu */
-.menu-bar {
+.top-bar {
     -fx-background-color: #333333;
-}
-
-/* Style pour le survol des menus principaux */
-.menu-bar .menu:hover {
-    -fx-background-color: #5555;
 }
 
 /* Style pour le texte des menus principaux */
-.menu-bar .menu .label {
+.top-button {
     -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-font-size: 15;
 }
 
-/* Style pour la barre de menu */
-.menu-item {
-    -fx-background-color: #333333;
-}
-
-/* Style pour le survol des menus principaux */
-.menu-item .menu:hover {
-    -fx-background-color: #5555;
+.top-button:hover {
+    -fx-text-fill: grey;
+    -fx-background-color: transparent;
+    -fx-font-size: 15;
 }
 
 .choice-box .menu-item {

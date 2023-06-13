@@ -27,29 +27,9 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class DashboardController {
-    Screen screen = Screen.getPrimary();
-    Rectangle2D bounds = screen.getVisualBounds();
-    private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
-    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
-
     @FXML
-    private void handleMenuAction(ActionEvent event) throws IOException {
-        MenuItem menuItem = (MenuItem) event.getSource();
-        String menuText = menuItem.getText();
-
-        Stage stage = (Stage) menuItem.getParentPopup().getOwnerWindow();
-
-        if (menuText.equals("Accueil")) {
-            Scene scene = ViewLoaders.getHomeView();
-            stage.setScene(scene);
-        } else if (menuText.equals("Carte")) {
-//            Scene scene = ViewLoaders.getMapView();
-//            stage.setScene(scene);
-        } else if (menuText.equals("Dashboard")) {
-            Scene scene = ViewLoaders.getDashboardView();
-            stage.setScene(scene);
-        }
-        stage.show();
+    private void handleViewChange(ActionEvent event) {
+        ViewLoaders.loadView(event);
     }
 
 
