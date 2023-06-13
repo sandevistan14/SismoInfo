@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefWidth="1500.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.DashboardController">
+<BorderPane prefHeight="934.0" prefWidth="1416.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.DashboardController">
     <top>
         <MenuBar>
             <Menu text="Accueil">
@@ -19,43 +19,64 @@
         </MenuBar>
     </top>
    <center>
-   <VBox>
-       <HBox prefHeight="200.0" prefWidth="1500.0">
-            <children>
-          <Button mnemonicParsing="false" onAction="#InitGraphe" prefHeight="25.0" prefWidth="113.0" text="Button" />
-            <LineChart fx:id="GrapheLineChart" animated="false" legendVisible="false" prefHeight="150.0" prefWidth="1297.0">
-                <xAxis>
-                  <CategoryAxis side="BOTTOM" />
-                </xAxis>
-                <yAxis>
-                  <NumberAxis side="LEFT" />
-                </yAxis>
-            </LineChart>
-            </children></HBox>
-      <HBox BorderPane.alignment="CENTER">
-         <children>
-            <PieChart fx:id="GraphePieChart" animated="false" GridPane.rowIndex="2">
-            </PieChart>
-            <BarChart fx:id="GrapheBarChart" animated="false" legendVisible="false" style="bar: black;" GridPane.rowIndex="1">
-                <xAxis>
-                  <CategoryAxis>
-                  </CategoryAxis>
-                </xAxis>
-                <yAxis>
-                    <NumberAxis>
-                    </NumberAxis>
-                </yAxis>
-              </BarChart>
-              <ScatterChart id="chartScatter" fx:id="GrapheScatterChart" animated="false" legendVisible="false">
-                  <xAxis>
-                    <CategoryAxis side="BOTTOM" />
-                  </xAxis>
-                  <yAxis>
-                    <NumberAxis side="LEFT" />
-                  </yAxis>
-              </ScatterChart>
-             </children>
-          </HBox>
+   <VBox prefHeight="697.0" prefWidth="896.0">
+      <HBox BorderPane.alignment="CENTER" />
+         <TableView fx:id="Tableview" prefHeight="697.0" prefWidth="824.0">
+                <columns>
+
+                </columns>
+         </TableView>
       </VBox>
    </center>
+   <bottom>
+   <LineChart fx:id="GrapheLineChart" animated="false" legendVisible="false" prefHeight="271.0" prefWidth="1416.0" BorderPane.alignment="CENTER">
+       <xAxis>
+         <CategoryAxis side="BOTTOM" />
+       </xAxis>
+       <yAxis>
+         <NumberAxis side="LEFT" />
+       </yAxis>
+   </LineChart>
+   </bottom>
+   <left>
+      <VBox prefHeight="697.0" prefWidth="484.0" BorderPane.alignment="CENTER">
+         <children>
+       <Button mnemonicParsing="false" onAction="#InitGraphe" prefHeight="123.0" prefWidth="484.0" text="Actualisé" />
+         <PieChart fx:id="GraphePieChart" animated="false" clockwise="false" legendVisible="false" prefHeight="293.0" prefWidth="336.0">
+            </PieChart>
+            <BarChart fx:id="GrapheBarChart2" animated="false" legendVisible="false" prefHeight="319.0" prefWidth="376.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox prefHeight="896.0" prefWidth="434.0" BorderPane.alignment="CENTER">
+         <children>
+         <BarChart fx:id="GrapheBarChart" animated="false" legendVisible="false" style="bar: black;">
+             <xAxis>
+               <CategoryAxis>
+                  </CategoryAxis>
+             </xAxis>
+             <yAxis>
+                 <NumberAxis>
+                    </NumberAxis>
+             </yAxis>
+           </BarChart>
+           <ScatterChart id="chartScatter" fx:id="GrapheScatterChart" animated="false" legendVisible="false" prefHeight="345.0" prefWidth="434.0">
+               <xAxis>
+                 <CategoryAxis side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                 <NumberAxis side="LEFT" />
+               </yAxis>
+           </ScatterChart>
+         </children>
+      </VBox>
+   </right>
 </BorderPane>
