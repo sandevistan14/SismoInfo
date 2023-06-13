@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.*?>
 
-<BorderPane prefWidth="689.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.HomeController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.HomeController">
     <center>
-        <GridPane alignment="TOP_CENTER" hgap="20" vgap="40">
+        <GridPane alignment="TOP_CENTER" hgap="20" vgap="40" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="0" left="0" right="0" top="60" />
             </padding>
@@ -67,4 +68,7 @@
          </children>
       </HBox>
    </top>
+   <stylesheets>
+      <URL value="@../Css/styles.css" />
+   </stylesheets>
 </BorderPane>

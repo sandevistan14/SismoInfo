@@ -124,8 +124,8 @@ public class HomeController  extends GridPane implements Initializable {
                 database.setFilterBeforeDate(earthquake -> earthquake.getDate().isBefore(newValue));
         });
         checkMarkView.imageProperty().bind(Bindings.when(fileInserted)
-                .then(new Image(getClass().getResourceAsStream("/com/g4d/sismoinfo/valid.png"),25, 25, true,false))
-                .otherwise(new Image(getClass().getResourceAsStream("/com/g4d/sismoinfo/notValid.png"),25, 25, true,false)));
+                .then(new Image(getClass().getResourceAsStream("/com/g4d/sismoinfo/Image/valid.png"),25, 25, true,false))
+                .otherwise(new Image(getClass().getResourceAsStream("/com/g4d/sismoinfo/Image/notValid.png"),25, 25, true,false)));
     }
 
     /**

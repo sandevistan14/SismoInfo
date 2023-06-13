@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="448.0" prefWidth="529.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.MapController">
+<BorderPane prefHeight="448.0" prefWidth="529.0" stylesheets="@../Css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.MapController">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="689.0" styleClass="top-bar" BorderPane.alignment="CENTER">
             <children>
@@ -16,4 +16,5 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
    </center>
+   
 </BorderPane>

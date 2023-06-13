@@ -50,6 +50,40 @@ public class DashboardController {
     @FXML
     TableView<Earthquake> Tableview = new TableView<Earthquake>();
 
+    //*****************************************************************************************************
+    //**************************************     LineChart     *********************************************
+    @FXML
+    LineChart GrapheLineChart;
+    Map<String, Integer> DicoDataLine = new LinkedHashMap<>();
+    ObservableList< XYChart.Data<String, Number> > DataGrapheLineChart = FXCollections.observableArrayList();
+    XYChart.Series<String, Number> SeriesGrapheLineChart = new XYChart.Series<>(DataGrapheLineChart);
+    //*****************************************************************************************************
+    //**************************************     PieChart     *********************************************
+    @FXML
+    PieChart GraphePieChart = new PieChart();
+    Map<String, Integer> DicoDataPie = new LinkedHashMap<>(5);
+    ObservableList<PieChart.Data> DataGraphePieChart = FXCollections.observableArrayList();
+    //*****************************************************************************************************
+    //**************************************     BarChart     *********************************************
+    @FXML
+    BarChart GrapheBarChart;
+    Map<String, Integer> DicoDataBar = new LinkedHashMap<>();
+    ObservableList< XYChart.Data<String, Number> > DataGrapheBarChart = FXCollections.observableArrayList();
+    XYChart.Series<String, Number> SeriesGrapheBarChart = new XYChart.Series<>(DataGrapheBarChart);
+    //*****************************************************************************************************
+    //**************************************     ScatterChart     *********************************************
+    @FXML
+    ScatterChart GrapheScatterChart;
+    XYChart.Series SeriesGrapheScatterChart = new XYChart.Series();
+    //*****************************************************************************************************
+    //**************************************     BarChart2     *********************************************
+    @FXML
+    BarChart GrapheBarChart2;
+    Map<String, Double> DicoDataBar2 = new LinkedHashMap<>();
+    ObservableList< XYChart.Data<String, Number> > DataGrapheBarChart2 = FXCollections.observableArrayList();
+    XYChart.Series<String, Number> SeriesGrapheBarChart2 = new XYChart.Series<>(DataGrapheBarChart2);
+    //*****************************************************************************************************
+
     /**
      * Adds the specified earthquake data to the table view.
      *
@@ -77,52 +111,18 @@ public class DashboardController {
         TableColumn<Earthquake,Double> Column6 = new TableColumn<Earthquake,Double>("shock");
         Column6.setCellValueFactory(new PropertyValueFactory("shock"));
 
-        TableColumn<Earthquake,Double> Column11 = new TableColumn<Earthquake,Double>("epicentralIntensity");
-        Column11.setCellValueFactory(new PropertyValueFactory("epicentralIntensity"));
+        TableColumn<Earthquake,Double> Column7 = new TableColumn<Earthquake,Double>("epicentralIntensity");
+        Column7.setCellValueFactory(new PropertyValueFactory("epicentralIntensity"));
 
-        TableColumn<Earthquake,Double> Column12 = new TableColumn<Earthquake,Double>("epicentralIntensityQuality");
-        Column12.setCellValueFactory(new PropertyValueFactory("epicentralIntensityQuality"));
+        TableColumn<Earthquake,Double> Column8 = new TableColumn<Earthquake,Double>("epicentralIntensityQuality");
+        Column8.setCellValueFactory(new PropertyValueFactory("epicentralIntensityQuality"));
 
-
-        Tableview.getColumns().setAll(Column1, Column2, Column3, Column4, Column5, Column6, Column11, Column12);
-
+        Tableview.getColumns().setAll(Column1, Column2, Column3, Column4, Column5, Column6, Column7, Column8);
 
         for (Earthquake earthquake : filteredData) {
             Tableview.getItems().add(earthquake);
         }
     }
-
-
-
-
-    Map<String, Integer> DicoDataLine = new LinkedHashMap<>();
-
-    ObservableList< XYChart.Data<String, Number> > DataGrapheLineChart = FXCollections.observableArrayList();
-    XYChart.Series<String, Number> SeriesGrapheLineChart = new XYChart.Series<>(DataGrapheLineChart);
-
-    Map<String, Integer> DicoDataPie = new LinkedHashMap<>(5);
-    ObservableList<PieChart.Data> DataGraphePieChart = FXCollections.observableArrayList();
-
-    Map<String, Integer> DicoDataBar = new LinkedHashMap<>();
-    ObservableList< XYChart.Data<String, Number> > DataGrapheBarChart = FXCollections.observableArrayList();
-    XYChart.Series<String, Number> SeriesGrapheBarChart = new XYChart.Series<>(DataGrapheBarChart);
-
-    XYChart.Series SeriesGrapheScatterChart = new XYChart.Series();
-
-    @FXML
-    LineChart GrapheLineChart;
-    @FXML
-    PieChart GraphePieChart = new PieChart();
-    @FXML
-    BarChart GrapheBarChart;
-    @FXML
-    ScatterChart GrapheScatterChart;
-    @FXML
-    BarChart GrapheBarChart2;
-
-    Map<String, Double> DicoDataBar2 = new LinkedHashMap<>();
-    ObservableList< XYChart.Data<String, Number> > DataGrapheBarChart2 = FXCollections.observableArrayList();
-    XYChart.Series<String, Number> SeriesGrapheBarChart2 = new XYChart.Series<>(DataGrapheBarChart2);
 
     /**
      * Initializes the Pie Graph data.
@@ -144,16 +144,16 @@ public class DashboardController {
      */
     public void AddInGrapheLineChart(ArrayList<Earthquake> filteredData){
         DicoDataLine.put(Integer.toString(filteredData.get(0).getDate().getYear()),1);
-        for(int i = 0;i < filteredData.size();++i){
+        for (Earthquake earthquake : filteredData) {
             boolean lock = false;
             for(Map.Entry<String, Integer> entry : DicoDataLine.entrySet()) {
-                if(Integer.toString(filteredData.get(i).getDate().getYear()).equals(entry.getKey())){
+                if(Integer.toString(earthquake.getDate().getYear()).equals(entry.getKey())){
                     entry.setValue(entry.getValue()+1);
                     lock = true;
                 }
             }
             if(lock == false){
-                DicoDataLine.put(Integer.toString(filteredData.get(i).getDate().getYear()),1);
+                DicoDataLine.put(Integer.toString(earthquake.getDate().getYear()),1);
             }
         }
         for(Map.Entry<String, Integer> entry : DicoDataLine.entrySet()) {
@@ -170,9 +170,9 @@ public class DashboardController {
      */
     public void AddInGraphePieChart(List<Earthquake> filteredData){
         InitPieGraphData();
-        for(int i = 0;i < filteredData.size();++i){
+        for (Earthquake earthquake : filteredData) {
             for(Map.Entry<String, Integer> entry : DicoDataPie.entrySet()) {
-                if(filteredData.get(i).getEpicentralIntensityQuality().name().equals(entry.getKey())){
+                if(earthquake.getEpicentralIntensityQuality().name().equals(entry.getKey())){
                     entry.setValue(entry.getValue()+1);
                 }
             }
@@ -190,16 +190,16 @@ public class DashboardController {
      */
     public void AddInGrapheBarChart(ArrayList<Earthquake> filteredData){
         DicoDataBar.put(Double.toString(filteredData.get(0).getEpicentralIntensity()),1);
-        for(int i = 0;i < filteredData.size();++i){
+        for (Earthquake earthquake : filteredData) {
             boolean lock = false;
             for(Map.Entry<String, Integer> entry : DicoDataBar.entrySet()) {
-                if(Double.toString(filteredData.get(i).getEpicentralIntensity()).equals(entry.getKey())){
+                if(Double.toString(earthquake.getEpicentralIntensity()).equals(entry.getKey())){
                     entry.setValue(entry.getValue()+1);
                     lock = true;
                 }
             }
             if(lock == false){
-                DicoDataBar.put(Double.toString(filteredData.get(i).getEpicentralIntensity()),1);
+                DicoDataBar.put(Double.toString(earthquake.getEpicentralIntensity()),1);
             }
         }
 
@@ -309,7 +309,6 @@ public class DashboardController {
      * @return the sorted dictionary.
      */
     public static Map<String, Integer> SortDico(Map<String, Integer> dico){
-
         List<Map.Entry<String, Integer>> entries = new ArrayList<>(dico.entrySet());
 
         entries.sort(Map.Entry.comparingByKey());
@@ -317,7 +316,6 @@ public class DashboardController {
         for (Map.Entry<String, Integer> entry : entries) {
             sortedDico.put(entry.getKey(), entry.getValue());
         }
-
         return sortedDico;
     }
 }

@@ -32,7 +32,7 @@ public class ViewLoaders {
      * @throws RuntimeException If the FXML file cannot be loaded.
      */
     private static Scene createHomeview() {
-        FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/Fxml/home.fxml"));
         Parent homeRoot = null;
         try {
             homeRoot = fxmlLoader.load();
@@ -51,7 +51,7 @@ public class ViewLoaders {
      * @throws RuntimeException If the FXML file cannot be loaded.
      */
     private static Scene createDashboardview() {
-        FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/dashboard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/Fxml/dashboard.fxml"));
         Parent dashboardRoot = null;
         try {
             dashboardRoot = fxmlLoader.load();

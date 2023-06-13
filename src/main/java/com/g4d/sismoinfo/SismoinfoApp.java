@@ -7,17 +7,12 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
  * This class is the main entry point for the Sismoinfo application.
  */
 public class SismoinfoApp extends Application {
-    Screen screen = Screen.getPrimary();
-    Rectangle2D bounds = screen.getVisualBounds();
-    private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
-    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
 
     /**
      * This method is the main entry point for all JavaFX applications.
@@ -31,8 +26,6 @@ public class SismoinfoApp extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(SismoinfoApp.class.getResource("/com/g4d/sismoinfo/home.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), WINDOW_WIDTH,WINDOW_HEIGHT );
         Scene scene = ViewLoaders.getHomeView();
         stage.setTitle("Sismoinfo");
         stage.setScene(scene);

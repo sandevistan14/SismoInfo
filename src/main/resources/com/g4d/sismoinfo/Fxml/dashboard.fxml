@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.DashboardController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.DashboardController">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="689.0" styleClass="top-bar" BorderPane.alignment="CENTER">
             <children>
@@ -46,7 +47,7 @@
                <font>
                   <Font size="31.0" />
                </font></Button>
-            <Pane prefHeight="200.0" prefWidth="200.0" />
+            <Pane prefHeight="150.0" prefWidth="200.0" />
             <BarChart fx:id="GrapheBarChart2" animated="false" legendVisible="false" prefHeight="319.0" prefWidth="376.0" title=" Average earthquake intensity by epicentral quality">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
@@ -85,4 +86,7 @@
          </children>
       </VBox>
    </right>
+   <stylesheets>
+      <URL value="@../Css/styles.css" />
+   </stylesheets>
 </BorderPane>
