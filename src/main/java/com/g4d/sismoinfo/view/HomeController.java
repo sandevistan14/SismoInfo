@@ -155,11 +155,22 @@ public class HomeController  extends GridPane implements Initializable {
 //        imageView.setPreserveRatio(true); // Conserver le ratio d'aspect de l'image
 //    }
 
+    /**
+     * Handles a request to change the view in the application.
+     *
+     * @param event the action event associated with the request to change the view.
+     */
     @FXML
     private void handleViewChange(ActionEvent event) {
         ViewLoaders.loadView(event);
     }
 
+    /**
+     * Handles a request to apply filters in the application.
+     *
+     * @param event the action event associated with the request to apply filters.
+     * @throws IOException if an I/O error occurs during the filter application.
+     */
    @FXML
     private void handleFiltersApplicationAction(ActionEvent event) throws IOException {
 //            Button button = (Button) event.getSource();

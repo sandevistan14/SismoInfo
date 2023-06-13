@@ -18,8 +18,8 @@ import java.io.IOException;
 public class ViewLoaders {
     private static Screen screen = Screen.getPrimary();
     private static Rectangle2D bounds = screen.getVisualBounds();
-    private final static double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
-    private final static double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
+    private final static double WINDOW_WIDTH = bounds.getWidth(); // Window width
+    private final static double WINDOW_HEIGHT = bounds.getHeight()-20; // Window height
     private static Scene HomeView = createHomeview();
     private static Scene DashboardView = createDashboardview();
     private static Scene MapView = createMapview();
@@ -62,6 +62,12 @@ public class ViewLoaders {
         return scene;
     }
 
+    /**
+     * Creates the map view scene from the 'map.fxml' file.
+     *
+     * @return The scene for the map view.
+     * @throws RuntimeException if the 'map.fxml' file cannot be loaded.
+     */
     private static Scene createMapview() {
         FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/Fxml/map.fxml"));
         Parent dashboardRoot = null;
@@ -74,18 +80,38 @@ public class ViewLoaders {
         return scene;
     }
 
+    /**
+     * Returns the home view scene.
+     *
+     * @return The scene for the home view.
+     */
     public static Scene getHomeView() {
         return HomeView;
     }
 
+    /**
+     * Returns the dashboard view scene.
+     *
+     * @return The scene for the dashboard view.
+     */
     public static Scene getDashboardView() {
         return DashboardView;
     }
 
+    /**
+     * Returns the map view scene.
+     *
+     * @return The scene for the map view.
+     */
     public static Scene getMapView() {
         return MapView;
     }
 
+    /**
+     * Loads the view specified by the user data of the source button.
+     *
+     * @param event The action event that triggered the view change.
+     */
     public static void loadView(ActionEvent event){
         Button sourceOfEvent = (Button) event.getSource();
         Stage stage = (Stage) sourceOfEvent.getScene().getWindow();

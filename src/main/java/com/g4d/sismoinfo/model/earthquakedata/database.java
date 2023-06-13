@@ -31,7 +31,6 @@ public class database {
      * @return An ObservableList of Earthquake objects containing the initial data.
      */
     public static ObservableList<Earthquake> getInitialData() {
-
         return initialData;
     }
 

@@ -45,17 +45,34 @@ public class MapController implements Initializable {
         ViewLoaders.loadView(event);
     }
 
+    /**
+     * Initializes the map view with specific configurations.
+     * Sets the initial zoom level and center of the map.
+     *
+     * @param url Represents the URL used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle Resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mapView.setZoom(6.5);
         mapView.setCenter(FRANCE_CENTER);
     }
+
+    /**
+     * Initializes a blank map with specific configurations.
+     * Sets the initial zoom level and center of the map.
+     */
     private void initBlankMap(){
         mapView = new MapView();
         mapView.setZoom(6.5);
         mapView.setCenter(FRANCE_CENTER);
     }
-
+    /**
+     * Iterates over all the earthquake data retrieved from the database and visualizes them on the map.
+     * Each earthquake data point is represented as a layer on the map.
+     * If any existing layers are present on the map from a previous operation, they are removed.
+     * Also, each layer is configured with a click event that updates the earthquake information display.
+     */
     @FXML
     private void addEarthquakes(){
         for (int i = 0; i < mapLayers.size(); ++i){
