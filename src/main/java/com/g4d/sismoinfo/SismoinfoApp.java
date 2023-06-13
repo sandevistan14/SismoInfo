@@ -10,12 +10,25 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * This class is the main entry point for the Sismoinfo application.
+ */
 public class SismoinfoApp extends Application {
     Screen screen = Screen.getPrimary();
     Rectangle2D bounds = screen.getVisualBounds();
     private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
     private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
+
+    /**
+     * This method is the main entry point for all JavaFX applications.
+     * It sets the scene for the stage and displays the home view.
+     *
+     * @param stage The primary stage for this application, onto which
+     * the application scene can be set. The primary stage will be embedded in
+     * the browser if the application was launched from a browser.
+     *
+     * @throws IOException If the fxml file for the scene cannot be loaded.
+     */
     @Override
     public void start(Stage stage) throws IOException {
 //        FXMLLoader fxmlLoader = new FXMLLoader(SismoinfoApp.class.getResource("/com/g4d/sismoinfo/home.fxml"));
@@ -27,6 +40,11 @@ public class SismoinfoApp extends Application {
         stage.show();
     }
 
+    /**
+     * The main() launches the JavaFX application.
+     *
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

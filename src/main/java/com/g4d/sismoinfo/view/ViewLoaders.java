@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * This class is responsible for loading different views in the application.
+ * It includes methods to create and switch between Home view and Dashboard view.
+ */
 public class ViewLoaders {
     private static Screen screen = Screen.getPrimary();
     private static Rectangle2D bounds = screen.getVisualBounds();
@@ -18,9 +22,15 @@ public class ViewLoaders {
     private final static double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
     private static Scene HomeView = createHomeview();
     private static Scene DashboardView = createDashboardview();
-//    private static Scene MapView = createMapview();
+    //private static Scene MapView = createMapview();
 
-
+    /**
+     * This method creates and returns the Home view Scene.
+     * It loads the FXML file and sets up the scene with the window dimensions.
+     *
+     * @return The created Home view scene.
+     * @throws RuntimeException If the FXML file cannot be loaded.
+     */
     private static Scene createHomeview() {
         FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/home.fxml"));
         Parent homeRoot = null;
@@ -33,6 +43,13 @@ public class ViewLoaders {
         return scene;
     }
 
+    /**
+     * This method creates and returns the Dashboard view Scene.
+     * It loads the FXML file and sets up the scene with the window dimensions.
+     *
+     * @return The created Dashboard view scene.
+     * @throws RuntimeException If the FXML file cannot be loaded.
+     */
     private static Scene createDashboardview() {
         FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/dashboard.fxml"));
         Parent dashboardRoot = null;

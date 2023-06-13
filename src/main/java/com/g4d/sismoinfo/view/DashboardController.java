@@ -26,17 +26,35 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * This class handles the Dashboard interface of the earthquake data application.
+ * It is responsible for loading the earthquake data, displaying them in different types of charts and table view.
+ */
 public class DashboardController {
+
+    /**
+     * Handles the action event to change the view.
+     *
+     * @param event the action event to be handled.
+     */
     @FXML
     private void handleViewChange(ActionEvent event) {
         ViewLoaders.loadView(event);
     }
 
-
-
+    /**
+     * Loads the filtered data into the table view for display.
+     *
+     * @param filteredData The filtered earthquake data.
+     */
     @FXML
     TableView<Earthquake> Tableview = new TableView<Earthquake>();
 
+    /**
+     * Adds the specified earthquake data to the table view.
+     *
+     * @param filteredData the earthquake data to be added to the table view.
+     */
     public void AddInTableView(ArrayList<Earthquake> filteredData) {
         ObservableList<Earthquake> teamMembers = FXCollections.observableArrayList(filteredData);
         Tableview.setItems(teamMembers);
@@ -106,6 +124,9 @@ public class DashboardController {
     ObservableList< XYChart.Data<String, Number> > DataGrapheBarChart2 = FXCollections.observableArrayList();
     XYChart.Series<String, Number> SeriesGrapheBarChart2 = new XYChart.Series<>(DataGrapheBarChart2);
 
+    /**
+     * Initializes the Pie Graph data.
+     */
     @FXML
     public void InitPieGraphData(){
         DicoDataPie.put("A",0);
@@ -116,6 +137,11 @@ public class DashboardController {
         DicoDataPie.put("I",0);
     }
 
+    /**
+     * Adds the specified earthquake data to the line chart.
+     *
+     * @param filteredData the earthquake data to be added to the line chart.
+     */
     public void AddInGrapheLineChart(ArrayList<Earthquake> filteredData){
         DicoDataLine.put(Integer.toString(filteredData.get(0).getDate().getYear()),1);
         for(int i = 0;i < filteredData.size();++i){
@@ -137,6 +163,11 @@ public class DashboardController {
         GrapheLineChart.getData().add(SeriesGrapheLineChart);
     }
 
+    /**
+     * Adds the specified earthquake data to the pie chart.
+     *
+     * @param filteredData the earthquake data to be added to the pie chart.
+     */
     public void AddInGraphePieChart(List<Earthquake> filteredData){
         InitPieGraphData();
         for(int i = 0;i < filteredData.size();++i){
@@ -152,6 +183,11 @@ public class DashboardController {
         GraphePieChart.setData(DataGraphePieChart);
     }
 
+    /**
+     * Adds the specified earthquake data to the bar chart.
+     *
+     * @param filteredData the earthquake data to be added to the bar chart.
+     */
     public void AddInGrapheBarChart(ArrayList<Earthquake> filteredData){
         DicoDataBar.put(Double.toString(filteredData.get(0).getEpicentralIntensity()),1);
         for(int i = 0;i < filteredData.size();++i){
@@ -176,6 +212,11 @@ public class DashboardController {
         GrapheBarChart.getData().add(SeriesGrapheBarChart);
     }
 
+    /**
+     * Adds the specified earthquake data to the second bar chart.
+     *
+     * @param filteredData the earthquake data to be added to the second bar chart.
+     */
     public void AddInGrapheBarChart2(ArrayList<Earthquake> filteredData){
         DicoDataBar2.put(filteredData.get(0).getEpicentralIntensityQuality().getValue(),filteredData.get(0).getEpicentralIntensity());
         for(int i = 0;i < filteredData.size();++i){
@@ -199,6 +240,11 @@ public class DashboardController {
         GrapheBarChart2.getData().add(SeriesGrapheBarChart2);
     }
 
+    /**
+     * Adds the specified earthquake data to the scatter chart.
+     *
+     * @param filteredData the earthquake data to be added to the scatter chart.
+     */
     public void AddInGrapheScatterChart(ArrayList<Earthquake> filteredData){
         for (Earthquake earthquake : filteredData) {
             SeriesGrapheScatterChart.getData().add(new XYChart.Data<>(String.valueOf(earthquake.getDate().getYear()), earthquake.getEpicentralIntensity()));
@@ -208,6 +254,9 @@ public class DashboardController {
 
     boolean test = false;
 
+    /**
+     * Initializes the chart with the filtered earthquake data.
+     */
     @FXML
     public void InitGraphe(){
         clearGraphe();
@@ -223,6 +272,9 @@ public class DashboardController {
         }
     }
 
+    /**
+     * Clears the charts and table view.
+     */
     public void clearGraphe(){
         DataGrapheLineChart.clear();
         GrapheLineChart.getData().clear();
@@ -250,6 +302,12 @@ public class DashboardController {
         Tableview.getItems().clear();
     }
 
+    /**
+     * Sorts the specified dictionary.
+     *
+     * @param dico the dictionary to be sorted.
+     * @return the sorted dictionary.
+     */
     public static Map<String, Integer> SortDico(Map<String, Integer> dico){
 
         List<Map.Entry<String, Integer>> entries = new ArrayList<>(dico.entrySet());

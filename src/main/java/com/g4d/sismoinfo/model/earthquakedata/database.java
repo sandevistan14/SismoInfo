@@ -31,6 +31,7 @@ public class database {
      * @return An ObservableList of Earthquake objects containing the initial data.
      */
     public static ObservableList<Earthquake> getInitialData() {
+
         return initialData;
     }
 
@@ -61,6 +62,7 @@ public class database {
     private static Predicate<Earthquake> filterAfterDate = new Predicate<Earthquake>() {
         @Override
         public boolean test(Earthquake earthquake) {
+
             return true;
         }
     };
@@ -71,6 +73,7 @@ public class database {
     private static Predicate<Earthquake> filterBeforeDate = new Predicate<Earthquake>() {
         @Override
         public boolean test(Earthquake earthquake) {
+
             return true;
         }
     };
@@ -81,6 +84,7 @@ public class database {
     private static Predicate<Earthquake> filterByMinIntensity  = new Predicate<Earthquake>() {
         @Override
         public boolean test(Earthquake earthquake) {
+
             return true;
         }
     };
@@ -91,6 +95,7 @@ public class database {
     private static Predicate<Earthquake> filterByMaxIntensity  = new Predicate<Earthquake>() {
         @Override
         public boolean test(Earthquake earthquake) {
+
             return true;
         }
     };
@@ -101,6 +106,7 @@ public class database {
     private static Predicate<Earthquake> filterByLatitude  = new Predicate<Earthquake>() {
         @Override
         public boolean test(Earthquake earthquake) {
+
             return true;
         }
     };
@@ -111,6 +117,7 @@ public class database {
     private static Predicate<Earthquake> filterByLongitude  = new Predicate<Earthquake>() {
         @Override
         public boolean test(Earthquake earthquake) {
+
             return true;
         }
     };
@@ -121,6 +128,7 @@ public class database {
     private static Predicate<Earthquake> filterByRegion  = new Predicate<Earthquake>() {
         @Override
         public boolean test(Earthquake earthquake) {
+
             return true;
         }
     };
@@ -189,6 +197,7 @@ public class database {
      * @return A FilteredList of Earthquake objects representing the filtered data.
      */
     public static FilteredList<Earthquake> getFilteredData() {
+
         return filteredData;
     }
 
@@ -207,6 +216,7 @@ public class database {
      * @return The Predicate for filtering earthquakes after a certain date.
      */
     public static Predicate<Earthquake> getFilterAfterDate() {
+
         return filterAfterDate;
     }
 
@@ -273,14 +283,32 @@ public class database {
         database.filterByMaxIntensity = filterByMaxIntensity;
     }
 
+    /**
+     * Obtient le prédicat de filtre par latitude actuellement utilisé.
+     *
+     * @return Le prédicat de filtre par latitude actuellement utilisé.
+     */
     public static Predicate<Earthquake> getFilterByLatitude() {
+
         return filterByLatitude;
     }
 
+    /**
+     * Définit le prédicat de filtre par latitude.
+     *
+     * @param filterByLatitude Le prédicat de filtre par latitude à définir.
+     */
     public static void setFilterByLatitude(Predicate<Earthquake> filterByLatitude) {
         database.filterByLatitude = filterByLatitude;
     }
 
+    /**
+     * Génère un prédicat de filtre par latitude en fonction des valeurs de latitude et de rayon spécifiées.
+     *
+     * @param latitudeText Le texte représentant la latitude.
+     * @param radiusText   Le texte représentant le rayon.
+     * @return Le prédicat de filtre par latitude généré.
+     */
     public static Predicate<Earthquake> generateFiltersLatitude(String latitudeText,String radiusText){
         return new Predicate<Earthquake>() {
             @Override
@@ -292,6 +320,13 @@ public class database {
         };
     }
 
+    /**
+     * Génère un prédicat de filtre par longitude en fonction des valeurs de longitude et de rayon spécifiées.
+     *
+     * @param longitudeText Le texte représentant la longitude.
+     * @param radiusText    Le texte représentant le rayon.
+     * @return Le prédicat de filtre par longitude généré.
+     */
     public static Predicate<Earthquake> generateFiltersLongitude(String longitudeText,String radiusText){
         return new Predicate<Earthquake>() {
             @Override
@@ -303,18 +338,40 @@ public class database {
         };
     }
 
+    /**
+     * Obtient le prédicat de filtre par longitude actuellement utilisé.
+     *
+     * @return Le prédicat de filtre par longitude actuellement utilisé.
+     */
     public static Predicate<Earthquake> getFilterByLongitude() {
+
         return filterByLongitude;
     }
 
+    /**
+     * Définit le prédicat de filtre par longitude.
+     *
+     * @param filterByLongitude Le prédicat de filtre par longitude à définir.
+     */
     public static void setFilterByLongitude(Predicate<Earthquake> filterByLongitude) {
         database.filterByLongitude = filterByLongitude;
     }
 
+    /**
+     * Obtient le prédicat de filtre par région actuellement utilisé.
+     *
+     * @return Le prédicat de filtre par région actuellement utilisé.
+     */
     public static Predicate<Earthquake> getFilterByRegion() {
+
         return filterByRegion;
     }
 
+    /**
+     * Définit le prédicat de filtre par région.
+     *
+     * @param filterByRegion Le prédicat de filtre par région à définir.
+     */
     public static void setFilterByRegion(Predicate<Earthquake> filterByRegion) {
         database.filterByRegion = filterByRegion;
     }

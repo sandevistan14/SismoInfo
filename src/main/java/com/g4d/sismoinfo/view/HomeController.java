@@ -25,37 +25,33 @@ import org.controlsfx.control.RangeSlider;
 public class HomeController  extends GridPane implements Initializable {
     @FXML
     private TextField longitudeTextField;
-
     @FXML
     private TextField latitudeTextField;
-
     @FXML
     private TextField radiusTextField;
-
     @FXML
     private DatePicker after;
-
     @FXML
     private DatePicker before;
-
     private FileChooser csvFileChooser = new FileChooser();
     private File csvFile;
-
     private BooleanProperty fileInserted = new SimpleBooleanProperty(false);
-
-
     @FXML
     private RangeSlider epicentralIntensitySlider;
-
     @FXML
     private ChoiceBox<String> choiceBox;
-
     @FXML
     private HBox imageContainer;
-
     @FXML
     private ImageView checkMarkView;
 
+    /**
+     * Method to handle the action of the CSV button in the UI.
+     * This method opens a FileChooser dialog to select a CSV file and sets it as the source of data.
+     * After a successful file load, it updates the choiceBox items with the regions from the data.
+     *
+     * @param event The ActionEvent object generated when the CSV button is clicked.
+     */
     @FXML
     protected void csvButtonAction (ActionEvent event){
         Button sourceOfEvent = (Button) event.getSource();
@@ -64,6 +60,14 @@ public class HomeController  extends GridPane implements Initializable {
         choiceBox.setItems(database.allRegions);
     }
 
+    /**
+     * This method is called to initialize a controller after its root element has been
+     * completely processed. It sets the allowable file types in the FileChooser, sets up the TextFormatter
+     * for the TextFields and initializes the listener for the ChoiceBox and DatePicker.
+     *
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         csvFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
@@ -124,6 +128,12 @@ public class HomeController  extends GridPane implements Initializable {
                 .otherwise(new Image(getClass().getResourceAsStream("/com/g4d/sismoinfo/notValid.png"),25, 25, true,false)));
     }
 
+    /**
+     * Method to handle the action when a date is picked in the DatePicker UI component.
+     * Currently, this method just prints the picked date to the standard output.
+     *
+     * @param event The ActionEvent object generated when a date is picked.
+     */
     @FXML
     protected void DateAction (ActionEvent event){
         DatePicker sourceOfEvent = (DatePicker) event.getSource();

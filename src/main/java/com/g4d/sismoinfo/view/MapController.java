@@ -21,7 +21,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-
+/**
+ * This class is the controller for the Map view in the application.
+ * It implements the Initializable interface for initialization logic.
+ */
 public class MapController implements Initializable {
     Screen screen = Screen.getPrimary();
     Rectangle2D bounds = screen.getVisualBounds();
@@ -30,8 +33,14 @@ public class MapController implements Initializable {
     @FXML
     VBox ZoneMap;
 
+    /**
+     * This method calls the loadView method of ViewLoaders to handle the view change.
+     *
+     * @param event The ActionEvent object generated when a view change is triggered.
+     */
     @FXML
     private void handleViewChange(ActionEvent event) {
+
         ViewLoaders.loadView(event);
     }
 
