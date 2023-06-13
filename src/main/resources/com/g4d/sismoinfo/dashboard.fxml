@@ -25,7 +25,9 @@
       </VBox>
    </center>
    <bottom>
-   <LineChart fx:id="GrapheLineChart" animated="false" legendVisible="false" prefHeight="271.0" prefWidth="1416.0" BorderPane.alignment="CENTER">
+   <VBox>
+         <Label text="Number of earthquakes by year" />
+   <LineChart fx:id="GrapheLineChart" animated="false" legendVisible="false" prefHeight="271.0" prefWidth="1416.0" titleSide="LEFT" BorderPane.alignment="CENTER">
        <xAxis>
          <CategoryAxis side="BOTTOM" />
        </xAxis>
@@ -33,14 +35,15 @@
          <NumberAxis side="LEFT" />
        </yAxis>
    </LineChart>
+   </VBox>
    </bottom>
    <left>
       <VBox prefHeight="697.0" prefWidth="484.0" BorderPane.alignment="CENTER">
          <children>
        <Button mnemonicParsing="false" onAction="#InitGraphe" prefHeight="123.0" prefWidth="484.0" text="Actualisé" />
-         <PieChart fx:id="GraphePieChart" animated="false" clockwise="false" legendVisible="false" prefHeight="293.0" prefWidth="336.0">
+         <PieChart fx:id="GraphePieChart" animated="false" clockwise="false" labelsVisible="false" prefHeight="293.0" prefWidth="336.0" title="Distribution of epicentral quality">
             </PieChart>
-            <BarChart fx:id="GrapheBarChart2" animated="false" legendVisible="false" prefHeight="319.0" prefWidth="376.0">
+            <BarChart fx:id="GrapheBarChart2" animated="false" legendVisible="false" prefHeight="319.0" prefWidth="376.0" title=" Average earthquake intensity by epicentral quality">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -54,7 +57,7 @@
    <right>
       <VBox prefHeight="896.0" prefWidth="434.0" BorderPane.alignment="CENTER">
          <children>
-         <BarChart fx:id="GrapheBarChart" animated="false" legendVisible="false" style="bar: black;">
+         <BarChart fx:id="GrapheBarChart" animated="false" legendVisible="false" style="bar: black;" title="Number of earthquakes by intensity">
              <xAxis>
                <CategoryAxis>
                   </CategoryAxis>
@@ -64,7 +67,7 @@
                     </NumberAxis>
              </yAxis>
            </BarChart>
-           <ScatterChart id="chartScatter" fx:id="GrapheScatterChart" animated="false" legendVisible="false" prefHeight="345.0" prefWidth="434.0">
+           <ScatterChart id="chartScatter" fx:id="GrapheScatterChart" animated="false" legendVisible="false" prefHeight="345.0" prefWidth="434.0" title="Intensity as a function of year for each earthquake">
                <xAxis>
                  <CategoryAxis side="BOTTOM" />
                </xAxis>

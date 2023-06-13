@@ -230,6 +230,9 @@ public class DashboardController {
         DataGrapheBarChart.clear();
         GrapheBarChart.getData().clear();
 
+        DataGrapheBarChart2.clear();
+        GrapheBarChart2.getData().clear();
+
         DicoDataLine.clear();
         DataGrapheLineChart.clear();
         SeriesGrapheLineChart.getData().clear();
@@ -240,6 +243,8 @@ public class DashboardController {
 
         SeriesGrapheScatterChart.getData().clear();
         GrapheScatterChart.getData().clear();
+
+        Tableview.getItems().clear();
     }
 
     public static Map<String, Integer> SortDico(Map<String, Integer> dico){
