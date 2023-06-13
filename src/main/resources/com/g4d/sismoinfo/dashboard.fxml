@@ -42,7 +42,7 @@
    <left>
       <VBox prefHeight="697.0" prefWidth="484.0" BorderPane.alignment="CENTER">
          <children>
-       <Button mnemonicParsing="false" onAction="#InitGraphe" prefHeight="123.0" prefWidth="484.0" text="Actualisé">
+       <Button mnemonicParsing="false" onAction="#InitGraphe" prefHeight="123.0" prefWidth="484.0" text="Refresh">
                <font>
                   <Font size="31.0" />
                </font></Button>

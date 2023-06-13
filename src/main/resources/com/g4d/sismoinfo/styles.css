@@ -1,4 +1,5 @@
-/* Style pour le fond de la fenêtre */
+
+    /* Style pour le fond de la fenêtre */
 .root {
     -fx-background-color: #93aed3;
 }
@@ -46,6 +47,18 @@
 
 #insertButton:hover, #search:hover {
     -fx-background-color: #45a049; /* Couleur de fond au survol */
+}
+
+#InitGraphe {
+    -fx-background-color: #38639c; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-padding: 8px 16px; /* Espacement interne */
+    -fx-border-radius: 4px; /* Rayon des coins */
+}
+
+#InitGraphe:hover {
+    -fx-background-color: #386d90; /* Couleur de fond au survol */
 }
 
 /* Style pour les étiquettes */
