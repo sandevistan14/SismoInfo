@@ -36,8 +36,8 @@ import java.util.List;
 public class HomeController  extends GridPane implements Initializable {
     Screen screen = Screen.getPrimary();
     Rectangle2D bounds = screen.getVisualBounds();
-    private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
-    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
+    private final double WINDOW_WIDTH = bounds.getWidth(); // Window width
+    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Window height
     private final String[] regionsFrance = {"Auvergne-Rhône-Alpes", "Bourgogne-Franche-Comté", "Bretagne", "Centre-Val de Loire", "Corse", "Grand Est", "Hauts-de-France", "Île-de-France", "Normandie", "Nouvelle-Aquitaine", "Occitanie", "Pays de la Loire", "Provence-Alpes-Côte d'Azur"};
     private boolean fileInsert = false;
     public ArrayList<String> filteredDataList = new ArrayList<>();
@@ -88,9 +88,6 @@ public class HomeController  extends GridPane implements Initializable {
         max.textProperty().bind(epicentralIntensitySlider.highValueProperty().asString());
     }
 
-
-
-
     @FXML
     private ChoiceBox<String> choiceBox;
 
@@ -139,15 +136,15 @@ public class HomeController  extends GridPane implements Initializable {
     private void handleInsertAction(ActionEvent event) {
         fileInsert = true;
 
-        // Mettre à jour l'image en "valid.png"
+        // Update the image to "valid.png"
         String imagePath = "file:/Users/maxime/Documents/SismoInfo/src/main/resources/com/g4d/sismoinfo/valid.png";
         Image image = new Image(imagePath);
         imageView.setImage(image);
 
-        // Définir la taille de l'image en utilisant une règle CSS
-        imageView.setFitWidth(24); // Remplacez la valeur par la largeur souhaitée
-        imageView.setFitHeight(24); // Remplacez la valeur par la hauteur souhaitée
-        imageView.setPreserveRatio(true); // Conserver le ratio d'aspect de l'image
+        // Set the size of the image using CSS rule
+        imageView.setFitWidth(24); // Replace the value with the desired width
+        imageView.setFitHeight(24); // Replace the value with the desired height
+        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
     }
 
 
@@ -176,21 +173,22 @@ public class HomeController  extends GridPane implements Initializable {
         }
         stage.show();
     }
-    private List<Earthquake> earthquakeData = new ArrayList<>(); // Assurez-vous d'importer la classe Earthquake si nécessaire
-
+    private List<Earthquake> earthquakeData = new ArrayList<>();
 
     @FXML
     private void handleRechercherAction(ActionEvent event) throws IOException {
-        if (fileInsert) {
             Button button = (Button) event.getSource();
             Stage stage = (Stage) button.getScene().getWindow();
-            String latitude = latitudeTextField.getText();
-            String longitude = longitudeTextField.getText();
+            String latitude1 = latitudeTextField.getText();
+            System.out.println(latitude1);
+            String longitude1 = longitudeTextField.getText();
+            System.out.println(longitude1);
             String radius = radiusTextField.getText();
+            System.out.println(radius);
 
-            filteredDataList.add(latitude + "," + longitude + "," + radius);
+            filteredDataList.add(latitude1 + "," + longitude1 + "," + radius);
+            System.out.println(filteredDataList);
 
-            // Appeler la méthode updateMap() du MapController
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/map.fxml"));
             Parent mapRoot = fxmlLoader.load();
             Scene mapScene = new Scene(mapRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -201,6 +199,5 @@ public class HomeController  extends GridPane implements Initializable {
 
             stage.setScene(mapScene);
             stage.show();
-        }
     }
 }

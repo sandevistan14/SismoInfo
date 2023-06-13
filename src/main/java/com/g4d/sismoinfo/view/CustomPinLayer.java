@@ -11,17 +11,19 @@ public class CustomPinLayer extends MapLayer {
     private final MapPoint mapPoint;
     private final Circle circle;
 
-
     public CustomPinLayer(MapPoint mapPoint) {
-        this.mapPoint = mapPoint;
-
-        /* Cercle rouge de taille 5 */
-        this.circle = new Circle(5, Color.RED);
-
-        /* Ajoute le cercle au MapLayer */
-        this.getChildren().add(circle);
+        this(mapPoint, Color.RED);
     }
 
+    public CustomPinLayer(MapPoint mapPoint, Color color) {
+        this.mapPoint = mapPoint;
+
+
+        this.circle = new Circle(5, color);
+
+
+        this.getChildren().add(circle);
+    }
 
     @Override
     protected void layoutLayer() {

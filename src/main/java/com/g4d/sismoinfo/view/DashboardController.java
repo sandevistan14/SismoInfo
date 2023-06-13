@@ -24,8 +24,8 @@ import javafx.stage.Stage;
 public class DashboardController {
     Screen screen = Screen.getPrimary();
     Rectangle2D bounds = screen.getVisualBounds();
-    private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
-    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
+    private final double WINDOW_WIDTH = bounds.getWidth(); // Window width
+    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Window height
 
     @FXML
     private void handleMenuAction(ActionEvent event) throws IOException {

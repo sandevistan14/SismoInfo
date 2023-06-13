@@ -138,7 +138,7 @@ public class database {
             }
         }
         else {
-            // RENVOYER ERREUR
+            throw new RuntimeException("Invalid header names in CSV file.");
         }
     }
 

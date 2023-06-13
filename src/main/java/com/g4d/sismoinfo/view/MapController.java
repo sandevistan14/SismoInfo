@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
@@ -64,44 +65,15 @@ public class MapController implements Initializable {
         stage.show();
     }
 
+    private MapView mapView;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.setProperty("javafx.platform", "desktop");
 
-        MapView mapView = new MapView();
+        mapView = new MapView();  // Initialize the MapView
         mapView.setPrefSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
         MapPoint centre = new MapPoint(46.227638, 2.213749);
         mapView.setZoom(5);
-        /* point when click (marche pas)
-        mapView.setOnMouseClicked(e -> {
-            MapPoint centerPoint = mapView.getCenter();
-
-            double centerLat = centerPoint.getLatitude();
-            double centerLon = centerPoint.getLongitude();
-            double zoom = mapView.getZoom();
-
-            double clickX = e.getX() - mapView.getWidth() / 2;
-            double clickY = e.getY() - mapView.getHeight() / 2;
-
-            double scale = Math.pow(2, zoom);
-
-            double dLon = clickX / scale;
-            double dLat = clickY / scale;
-
-            double newLat = centerLat - dLat;
-            double newLon = centerLon + dLon;
-
-            MapPoint clickedPoint = new MapPoint(newLat, newLon);
-
-            System.out.println("Clicked latitude: " + newLat + ", longitude: " + newLon);
-            System.out.println("Zoom level: " + zoom);
-
-            MapLayer mapLayer = new CustomPinLayer(clickedPoint);
-            mapView.addLayer(mapLayer);
-            mapView.flyTo(0, clickedPoint, 0.1);
-        });
-        */
         mapView.flyTo(0, centre, 0.1);
         ZoneMap.getChildren().add(mapView);
     }
@@ -110,7 +82,7 @@ public class MapController implements Initializable {
         this.filteredDataList = filteredDataList;
     }
 
-    private Color getColorForMagnitude(double magnitude) {
+    public Color getColorForMagnitude(double magnitude) {
         Color color;
 
         if (magnitude < 2.0) {
@@ -135,8 +107,7 @@ public class MapController implements Initializable {
 
         return color;
     }
-
-
+/*
     private double getMagnitudeForCoordinates(double latitude, double longitude, List<Earthquake> earthquakeData) {
         for (Earthquake earthquake : earthquakeData) {
             double earthquakeLatitude = earthquake.getLatitude();
@@ -152,40 +123,59 @@ public class MapController implements Initializable {
         }
         return 0.0; // or any default value if no match is found
     }
+*/
+    public static double calculateDistance(double filterLat, double filterLon, double quakeLat, double quakeLon) {
+        int earthRadius = 6371;
 
-    public void updateMap(List<Earthquake> earthquakeData) {
-        for (String data : filteredDataList) {
-            String[] coordinates = data.split(",");
-            double latitude = Double.parseDouble(coordinates[0]);
-            double longitude = Double.parseDouble(coordinates[1]);
-            double radius = Double.parseDouble(coordinates[2]);
+        double latDistance = Math.toRadians(quakeLat - filterLat);
+        double lonDistance = Math.toRadians(quakeLon - filterLon);
 
-            int magnitude = getMagnitudeForCoordinates(latitude, longitude, earthquakeData);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(filterLat)) * Math.cos(Math.toRadians(quakeLat))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        System.out.println(earthRadius * c);
+        return earthRadius * c; // distance in kilometers
 
-            Color color = getColorForMagnitude(magnitude);
+    }
 
-            MapLayer mapLayer = new CustomPinLayer(latitude, longitude, radius, color);
+    public List<CoordinateWithMagnitude> filterEarthquakesByDistance(List<Earthquake> earthquakes) {
+        String[] data = filteredDataList.get(0).split(",");
+        double filterLat = Double.parseDouble(data[0]);
+        double filterLon = Double.parseDouble(data[1]);
+        double filterRadius = Double.parseDouble(data[2]);
 
-            mapView.addLayer(mapLayer);
+        List<CoordinateWithMagnitude> filteredEarthquakes = new ArrayList<>();
 
-            // Déclarez une liste pour stocker les points filtrés
-            List<MapPoint> filteredPoints = new ArrayList<>();
+        for (Earthquake earthquake : earthquakes) {
+            double quakeLat = earthquake.getLatitude();
+            double quakeLon = earthquake.getLongitude();
 
-            for (Earthquake earthquake : earthquakeData) {
-                // Récupérer les coordonnées de chaque séisme
-                double earthquakeLatitude = earthquake.getLatitude();
-                double earthquakeLongitude = earthquake.getLongitude();
-
-                // Calculer la distance entre les coordonnées spécifiées et les coordonnées du séisme
-                double distance = calculateDistance(latitude, longitude, earthquakeLatitude, earthquakeLongitude);
-
-                // Vérifier si la distance est dans le rayon
-                if (distance <= radius) {
-                    // Les coordonnées du séisme sont dans le rayon, ajoutez-les à la liste des points filtrés
-                    MapPoint filteredPoint = new MapPoint(earthquakeLatitude, earthquakeLongitude);
-                    filteredPoints.add(filteredPoint);
-                }
+            double distance = calculateDistance(filterLat, filterLon, quakeLat, quakeLon);
+            if (distance <= filterRadius) {
+                double magnitude = earthquake.getEpicentralIntensity();
+                CoordinateWithMagnitude coordinate = new CoordinateWithMagnitude(quakeLat, quakeLon, magnitude);
+                filteredEarthquakes.add(coordinate);
+                System.out.println(coordinate);
             }
+        }
+
+        return filteredEarthquakes;
+    }
+
+    public void updateMap(List<Earthquake> earthquakes) {
+        List<CoordinateWithMagnitude> filteredCoordinates = filterEarthquakesByDistance(earthquakes);
+
+        for (CoordinateWithMagnitude coordinate : filteredCoordinates) {
+            Color color = getColorForMagnitude(coordinate.getMagnitude());
+
+            MapPoint mapPoint = new MapPoint(coordinate.getLatitude(), coordinate.getLongitude());
+            CustomPinLayer pinLayer = new CustomPinLayer(mapPoint, color);
+
+            System.out.println(pinLayer);
+            mapView.addLayer(pinLayer);
         }
     }
 }
+
+
