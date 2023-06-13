@@ -1,5 +1,6 @@
 package com.g4d.sismoinfo;
 
+import com.g4d.sismoinfo.view.ViewLoaders;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -17,8 +18,9 @@ public class SismoinfoApp extends Application {
     private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SismoinfoApp.class.getResource("/com/g4d/sismoinfo/home.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), WINDOW_WIDTH,WINDOW_HEIGHT );
+//        FXMLLoader fxmlLoader = new FXMLLoader(SismoinfoApp.class.getResource("/com/g4d/sismoinfo/home.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), WINDOW_WIDTH,WINDOW_HEIGHT );
+        Scene scene = ViewLoaders.getHomeView();
         stage.setTitle("Sismoinfo");
         stage.setScene(scene);
         stage.setMaximized(false);

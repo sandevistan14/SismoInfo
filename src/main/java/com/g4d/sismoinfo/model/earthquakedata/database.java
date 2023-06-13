@@ -1,5 +1,7 @@
 package com.g4d.sismoinfo.model.earthquakedata;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,11 +16,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * The `database` class manages earthquake data in a JavaFX application.
  */
 public class database {
+
+    private static int NUMBER_OF_KILOMETERS_IN_LATITUDE = 111;
 
     /**
      * Gets the initial earthquake data.
@@ -47,6 +52,8 @@ public class database {
      * The filtered earthquake data based on applied filters.
      */
     private static FilteredList<Earthquake> filteredData = new FilteredList<>(initialData);
+
+    public static ObservableList<String> allRegions = FXCollections.emptyObservableList();
 
     /**
      * The filter predicate for filtering earthquakes after a certain date.
@@ -82,6 +89,36 @@ public class database {
      * The filter predicate for filtering earthquakes by maximum intensity.
      */
     private static Predicate<Earthquake> filterByMaxIntensity  = new Predicate<Earthquake>() {
+        @Override
+        public boolean test(Earthquake earthquake) {
+            return true;
+        }
+    };
+
+    /**
+     * The filter predicate for filtering earthquakes by a Latitude around a certain radius.
+     */
+    private static Predicate<Earthquake> filterByLatitude  = new Predicate<Earthquake>() {
+        @Override
+        public boolean test(Earthquake earthquake) {
+            return true;
+        }
+    };
+
+    /**
+     * The filter predicate for filtering earthquakes by a Longitude around a certain radius.
+     */
+    private static Predicate<Earthquake> filterByLongitude  = new Predicate<Earthquake>() {
+        @Override
+        public boolean test(Earthquake earthquake) {
+            return true;
+        }
+    };
+
+    /**
+     * The filter predicate for filtering earthquakes by a selected region.
+     */
+    private static Predicate<Earthquake> filterByRegion  = new Predicate<Earthquake>() {
         @Override
         public boolean test(Earthquake earthquake) {
             return true;
@@ -140,6 +177,12 @@ public class database {
         else {
             // RENVOYER ERREUR
         }
+        allRegions = initialData.stream()
+                .map(Earthquake::getEpicentralRegion)
+                .distinct()
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        for (String region : allRegions)
+            System.out.println(region);
     }
 
     /**
@@ -232,12 +275,58 @@ public class database {
         database.filterByMaxIntensity = filterByMaxIntensity;
     }
 
+    public static Predicate<Earthquake> getFilterByLatitude() {
+        return filterByLatitude;
+    }
+
+    public static void setFilterByLatitude(Predicate<Earthquake> filterByLatitude) {
+        database.filterByLatitude = filterByLatitude;
+    }
+
+    public static Predicate<Earthquake> generateFiltersLatitude(String latitudeText,String radiusText){
+        return new Predicate<Earthquake>() {
+            @Override
+            public boolean test(Earthquake earthquake) {
+                double radius = Double.parseDouble(radiusText);
+                double latitude = Double.parseDouble(latitudeText);
+                return earthquake.getLatitude() >= latitude-(radius/NUMBER_OF_KILOMETERS_IN_LATITUDE) && earthquake.getLatitude() <= latitude+(radius/NUMBER_OF_KILOMETERS_IN_LATITUDE);
+            }
+        };
+    }
+
+    public static Predicate<Earthquake> generateFiltersLongitude(String longitudeText,String radiusText){
+        return new Predicate<Earthquake>() {
+            @Override
+            public boolean test(Earthquake earthquake) {
+                double radius = Double.parseDouble(radiusText);
+                double longitude = Double.parseDouble(longitudeText);
+                return earthquake.getLongitude() >= longitude-(radius/111) && earthquake.getLatitude() <= longitude+(radius/111);
+            }
+        };
+    }
+
+    public static Predicate<Earthquake> getFilterByLongitude() {
+        return filterByLongitude;
+    }
+
+    public static void setFilterByLongitude(Predicate<Earthquake> filterByLongitude) {
+        database.filterByLongitude = filterByLongitude;
+    }
+
+    public static Predicate<Earthquake> getFilterByRegion() {
+        return filterByRegion;
+    }
+
+    public static void setFilterByRegion(Predicate<Earthquake> filterByRegion) {
+        database.filterByRegion = filterByRegion;
+    }
+
     /**
      * Gets the combined predicate of all filter conditions.
      *
      * @return The Predicate representing the combination of all filter conditions.
      */
     public static Predicate<Earthquake> getAllPredicates() {
-        return getFilterAfterDate().and(getFilterBeforeDate()).and(getFilterByMaxIntensity()).and(getFilterByMinIntensity());
+        return getFilterAfterDate().and(getFilterBeforeDate()).and(getFilterByMaxIntensity()).and(getFilterByMinIntensity()).and(getFilterByLatitude()).and(getFilterByLongitude()).and(getFilterByRegion());
     }
 }

@@ -35,19 +35,13 @@ public class DashboardController {
         Stage stage = (Stage) menuItem.getParentPopup().getOwnerWindow();
 
         if (menuText.equals("Accueil")) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/home.fxml"));
-            Parent homeRoot = fxmlLoader.load();
-            Scene scene = new Scene(homeRoot,WINDOW_WIDTH,WINDOW_HEIGHT);
+            Scene scene = ViewLoaders.getHomeView();
             stage.setScene(scene);
         } else if (menuText.equals("Carte")) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/map.fxml"));
-            Parent mapRoot = fxmlLoader.load();
-            Scene scene = new Scene(mapRoot,WINDOW_WIDTH,WINDOW_HEIGHT);
-            stage.setScene(scene);
+//            Scene scene = ViewLoaders.getMapView();
+//            stage.setScene(scene);
         } else if (menuText.equals("Dashboard")) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/dashboard.fxml"));
-            Parent dashboardRoot = fxmlLoader.load();
-            Scene scene = new Scene(dashboardRoot,WINDOW_WIDTH,WINDOW_HEIGHT);
+            Scene scene = ViewLoaders.getDashboardView();
             stage.setScene(scene);
         }
         stage.show();
@@ -161,7 +155,7 @@ public class DashboardController {
     @FXML
     public void InitGraphe(){
         clearGraphe();
-        ArrayList<Earthquake> filteredData = new ArrayList<>(database.getInitialData());
+        ArrayList<Earthquake> filteredData = new ArrayList<>(database.getFilteredData());
         AddInGrapheLineChart(filteredData);
         AddInGraphePieChart(filteredData);
         AddInGrapheBarChart(filteredData);

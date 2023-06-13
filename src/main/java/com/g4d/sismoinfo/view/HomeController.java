@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import com.g4d.sismoinfo.model.earthquakedata.Earthquake;
 import com.g4d.sismoinfo.model.earthquakedata.database;
@@ -16,18 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
 import org.controlsfx.control.RangeSlider;
 import javafx.stage.Screen;
 
@@ -61,34 +58,6 @@ public class HomeController  extends GridPane implements Initializable {
     RangeSlider epicentralIntensitySlider;
 
     @FXML
-    Label min;
-    @FXML
-    Label max;
-
-    @FXML
-    protected void csvButtonAction (ActionEvent event){
-        Button sourceOfEvent = (Button) event.getSource();
-        csvFile = csvFileChooser.showOpenDialog(sourceOfEvent.getScene().getWindow());
-        database.readCSV(csvFile);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        csvFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
-        epicentralIntensitySlider.setLowValue(2);
-        epicentralIntensitySlider.setHighValue(12);
-        epicentralIntensitySlider.lowValueProperty().addListener((obs, oldval, newVal) ->
-                epicentralIntensitySlider.setLowValue(epicentralIntensitySlider.lowValueProperty().intValue()));
-        epicentralIntensitySlider.highValueProperty().addListener((obs, oldval, newVal) ->
-                epicentralIntensitySlider.setHighValue(epicentralIntensitySlider.highValueProperty().intValue()));
-        min.textProperty().bind(epicentralIntensitySlider.lowValueProperty().asString());
-        max.textProperty().bind(epicentralIntensitySlider.highValueProperty().asString());
-    }
-
-
-
-
-    @FXML
     private ChoiceBox<String> choiceBox;
 
     @FXML
@@ -98,38 +67,74 @@ public class HomeController  extends GridPane implements Initializable {
     private ImageView imageView;
 
     @FXML
-    public void initialize() {
-        choiceBox.setItems(FXCollections.observableArrayList(regionsFrance));
-        choiceBox.setOnAction(this::handleChoiceBoxAction);
-
-        longitudeTextField.setOnAction(this::handleTextFieldAction);
-        latitudeTextField.setOnAction(this::handleTextFieldAction);
-        radiusTextField.setOnAction(this::handleTextFieldAction);
+    protected void csvButtonAction (ActionEvent event){
+        Button sourceOfEvent = (Button) event.getSource();
+        csvFile = csvFileChooser.showOpenDialog(sourceOfEvent.getScene().getWindow());
+        database.readCSV(csvFile);
+        choiceBox.setItems(database.allRegions);
     }
 
-    @FXML
-    private void handleTextFieldAction(ActionEvent event) {
-        String longitude = longitudeTextField.getText();
-        String latitude = latitudeTextField.getText();
-        String radius = radiusTextField.getText();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        csvFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
+        latitudeTextField.setTextFormatter(new TextFormatter<>(new DoubleStringConverter()));
+        longitudeTextField.setTextFormatter(new TextFormatter<>(new DoubleStringConverter()));
+        radiusTextField.setTextFormatter(new TextFormatter<>(new DoubleStringConverter()));
 
-        // Do something with the retrieved values
-        System.out.println("Longitude: " + longitude);
-        System.out.println("Latitude: " + latitude);
-        System.out.println("Rayon: " + radius);
+        latitudeTextField.onActionProperty().set(e -> {
+            if (radiusTextField.textProperty().get().isEmpty())
+                database.setFilterByLatitude(database.generateFiltersLatitude(latitudeTextField.textProperty().get(),"0"));
+            else
+                database.setFilterByLatitude(database.generateFiltersLatitude(latitudeTextField.textProperty().get(),radiusTextField.textProperty().get()));
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
+        longitudeTextField.onActionProperty().set(e -> {
+            if (radiusTextField.textProperty().get().isEmpty())
+                database.setFilterByLongitude(database.generateFiltersLatitude(longitudeTextField.textProperty().get(),"0"));
+            else
+                database.setFilterByLongitude(database.generateFiltersLatitude(longitudeTextField.textProperty().get(),radiusTextField.textProperty().get()));
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
+        radiusTextField.onActionProperty().set(e -> {
+            if (!(longitudeTextField.textProperty().get().isEmpty()))
+                database.setFilterByLongitude(database.generateFiltersLatitude(longitudeTextField.textProperty().get(),radiusTextField.textProperty().get()));
+            if (!(latitudeTextField.textProperty().get().isEmpty()))
+                database.setFilterByLatitude(database.generateFiltersLatitude(latitudeTextField.textProperty().get(),radiusTextField.textProperty().get()));
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
+
+        epicentralIntensitySlider.setLowValue(2);
+        epicentralIntensitySlider.setHighValue(12);
+        epicentralIntensitySlider.lowValueProperty().addListener((observable) -> {
+            epicentralIntensitySlider.lowValueProperty().set(epicentralIntensitySlider.lowValueProperty().intValue());
+            database.setFilterByMinIntensity(earthquake -> earthquake.getEpicentralIntensity() >= epicentralIntensitySlider.lowValueProperty().intValue());
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+
+        });
+        epicentralIntensitySlider.highValueProperty().addListener((observable) -> {
+            epicentralIntensitySlider.highValueProperty().set(epicentralIntensitySlider.highValueProperty().intValue());
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
+
+        choiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            database.setFilterByRegion(earthquake -> earthquake.getEpicentralRegion().contains(newValue));
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
+
+        after.valueProperty().addListener((observable, oldValue, newValue) -> {
+            database.setFilterAfterDate(earthquake -> earthquake.getDate().isAfter(newValue));
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
+        before.valueProperty().addListener((observable, oldValue, newValue) -> {
+            database.setFilterBeforeDate(earthquake -> earthquake.getDate().isBefore(newValue));
+            database.getFilteredData().setPredicate(database.getAllPredicates());
+        });
     }
-
 
     @FXML
     protected void DateAction (ActionEvent event){
         DatePicker sourceOfEvent = (DatePicker) event.getSource();
         System.out.println(sourceOfEvent.getValue());
-    }
-
-    @FXML
-    private void handleChoiceBoxAction(ActionEvent event) {
-        String selectedRegion = choiceBox.getValue();
-        System.out.println("Région sélectionnée : " + selectedRegion);
     }
 
     @FXML
@@ -156,19 +161,13 @@ public class HomeController  extends GridPane implements Initializable {
         Stage stage = (Stage) menuItem.getParentPopup().getOwnerWindow();
 
         if (menuText.equals("Accueil")) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/home.fxml"));
-            Parent homeRoot = fxmlLoader.load();
-            Scene scene = new Scene(homeRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+            Scene scene = ViewLoaders.getHomeView();
             stage.setScene(scene);
         } else if (menuText.equals("Carte")) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/map.fxml"));
-            Parent mapRoot = fxmlLoader.load();
-            Scene scene = new Scene(mapRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
-            stage.setScene(scene);
+//            Scene scene = ViewLoaders.getMapView();
+//            stage.setScene(scene);
         } else if (menuText.equals("Dashboard")) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/g4d/sismoinfo/dashboard.fxml"));
-            Parent dashboardRoot = fxmlLoader.load();
-            Scene scene = new Scene(dashboardRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+            Scene scene = ViewLoaders.getDashboardView();
             stage.setScene(scene);
         }
         stage.show();
