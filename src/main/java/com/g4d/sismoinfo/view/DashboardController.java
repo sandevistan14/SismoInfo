@@ -1,6 +1,7 @@
 package com.g4d.sismoinfo.view;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,6 +19,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -49,6 +54,48 @@ public class DashboardController {
 
 
 
+    @FXML
+    TableView<Earthquake> Tableview = new TableView<Earthquake>();
+
+    public void AddInTableView(ArrayList<Earthquake> filteredData) {
+        ObservableList<Earthquake> teamMembers = FXCollections.observableArrayList(filteredData);
+        Tableview.setItems(teamMembers);
+
+        TableColumn<Earthquake,Integer> Column1 = new TableColumn<Earthquake,Integer>("id");
+        Column1.setCellValueFactory(new PropertyValueFactory("id"));
+
+        TableColumn<Earthquake,Double> Column2 = new TableColumn<Earthquake,Double>("Date");
+        Column2.setCellValueFactory(new PropertyValueFactory("Date"));
+
+        TableColumn<Earthquake,Double> Column3 = new TableColumn<Earthquake,Double>("time");
+        Column3.setCellValueFactory(new PropertyValueFactory("time"));
+
+        TableColumn<Earthquake,Double> Column4 = new TableColumn<Earthquake,Double>("localisation");
+        Column4.setCellValueFactory(new PropertyValueFactory("localisation"));
+
+        TableColumn<Earthquake,Double> Column5 = new TableColumn<Earthquake,Double>("epicentralRegion");
+        Column5.setCellValueFactory(new PropertyValueFactory("epicentralRegion"));
+
+        TableColumn<Earthquake,Double> Column6 = new TableColumn<Earthquake,Double>("shock");
+        Column6.setCellValueFactory(new PropertyValueFactory("shock"));
+
+        TableColumn<Earthquake,Double> Column11 = new TableColumn<Earthquake,Double>("epicentralIntensity");
+        Column11.setCellValueFactory(new PropertyValueFactory("epicentralIntensity"));
+
+        TableColumn<Earthquake,Double> Column12 = new TableColumn<Earthquake,Double>("epicentralIntensityQuality");
+        Column12.setCellValueFactory(new PropertyValueFactory("epicentralIntensityQuality"));
+
+
+        Tableview.getColumns().setAll(Column1, Column2, Column3, Column4, Column5, Column6, Column11, Column12);
+
+
+        for (Earthquake earthquake : filteredData) {
+            Tableview.getItems().add(earthquake);
+        }
+    }
+
+
+
 
     Map<String, Integer> DicoDataLine = new LinkedHashMap<>();
 
@@ -72,6 +119,12 @@ public class DashboardController {
     BarChart GrapheBarChart;
     @FXML
     ScatterChart GrapheScatterChart;
+    @FXML
+    BarChart GrapheBarChart2;
+
+    Map<String, Double> DicoDataBar2 = new LinkedHashMap<>();
+    ObservableList< XYChart.Data<String, Number> > DataGrapheBarChart2 = FXCollections.observableArrayList();
+    XYChart.Series<String, Number> SeriesGrapheBarChart2 = new XYChart.Series<>(DataGrapheBarChart2);
 
     @FXML
     public void InitPieGraphData(){
@@ -143,6 +196,29 @@ public class DashboardController {
         GrapheBarChart.getData().add(SeriesGrapheBarChart);
     }
 
+    public void AddInGrapheBarChart2(ArrayList<Earthquake> filteredData){
+        DicoDataBar2.put(filteredData.get(0).getEpicentralIntensityQuality().getValue(),filteredData.get(0).getEpicentralIntensity());
+        for(int i = 0;i < filteredData.size();++i){
+            boolean lock = false;
+            for(Map.Entry<String, Double> entry : DicoDataBar2.entrySet()) {
+                if(filteredData.get(i).getEpicentralIntensityQuality().getValue().equals(entry.getKey())){
+                    entry.setValue((entry.getValue() + filteredData.get(i).getEpicentralIntensity())/2);
+                    lock = true;
+                }
+            }
+            if(lock == false){
+                DicoDataBar2.put(filteredData.get(i).getEpicentralIntensityQuality().getValue(),filteredData.get(i).getEpicentralIntensity());
+            }
+        }
+
+
+        for(Map.Entry<String, Double> entry : DicoDataBar2.entrySet()) {
+            XYChart.Data donne = new XYChart.Data(entry.getKey(), entry.getValue());
+            DataGrapheBarChart2.add(donne);
+        }
+        GrapheBarChart2.getData().add(SeriesGrapheBarChart2);
+    }
+
     public void AddInGrapheScatterChart(ArrayList<Earthquake> filteredData){
         for (Earthquake earthquake : filteredData) {
             SeriesGrapheScatterChart.getData().add(new XYChart.Data<>(String.valueOf(earthquake.getDate().getYear()), earthquake.getEpicentralIntensity()));
@@ -160,6 +236,8 @@ public class DashboardController {
         AddInGraphePieChart(filteredData);
         AddInGrapheBarChart(filteredData);
         AddInGrapheScatterChart(filteredData);
+        AddInGrapheBarChart2(filteredData);
+        AddInTableView(filteredData);
     }
 
     public void clearGraphe(){
