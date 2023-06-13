@@ -3,8 +3,9 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="934.0" prefWidth="1416.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.DashboardController">
+<BorderPane stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.DashboardController">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="689.0" styleClass="top-bar" BorderPane.alignment="CENTER">
             <children>
@@ -17,6 +18,7 @@
    <center>
    <VBox prefHeight="697.0" prefWidth="896.0">
       <HBox BorderPane.alignment="CENTER" />
+         <Pane prefHeight="158.0" prefWidth="896.0" />
          <TableView fx:id="Tableview" prefHeight="697.0" prefWidth="824.0">
                 <columns>
 
@@ -40,9 +42,11 @@
    <left>
       <VBox prefHeight="697.0" prefWidth="484.0" BorderPane.alignment="CENTER">
          <children>
-       <Button mnemonicParsing="false" onAction="#InitGraphe" prefHeight="123.0" prefWidth="484.0" text="Actualisé" />
-         <PieChart fx:id="GraphePieChart" animated="false" clockwise="false" labelsVisible="false" prefHeight="293.0" prefWidth="336.0" title="Distribution of epicentral quality">
-            </PieChart>
+       <Button mnemonicParsing="false" onAction="#InitGraphe" prefHeight="123.0" prefWidth="484.0" text="Actualisé">
+               <font>
+                  <Font size="31.0" />
+               </font></Button>
+            <Pane prefHeight="200.0" prefWidth="200.0" />
             <BarChart fx:id="GrapheBarChart2" animated="false" legendVisible="false" prefHeight="319.0" prefWidth="376.0" title=" Average earthquake intensity by epicentral quality">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
@@ -51,12 +55,15 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
+         <PieChart fx:id="GraphePieChart" animated="false" clockwise="false" labelsVisible="false" prefHeight="293.0" prefWidth="336.0" title="Distribution of epicentral quality">
+            </PieChart>
          </children>
       </VBox>
    </left>
    <right>
       <VBox prefHeight="896.0" prefWidth="434.0" BorderPane.alignment="CENTER">
          <children>
+            <Pane prefHeight="224.0" prefWidth="434.0" />
          <BarChart fx:id="GrapheBarChart" animated="false" legendVisible="false" style="bar: black;" title="Number of earthquakes by intensity">
              <xAxis>
                <CategoryAxis>
@@ -67,7 +74,7 @@
                     </NumberAxis>
              </yAxis>
            </BarChart>
-           <ScatterChart id="chartScatter" fx:id="GrapheScatterChart" animated="false" legendVisible="false" prefHeight="345.0" prefWidth="434.0" title="Intensity as a function of year for each earthquake">
+           <ScatterChart id="chartScatter" fx:id="GrapheScatterChart" animated="false" legendVisible="false" prefHeight="336.0" prefWidth="434.0" title="Intensity as a function of year for each earthquake">
                <xAxis>
                  <CategoryAxis side="BOTTOM" />
                </xAxis>

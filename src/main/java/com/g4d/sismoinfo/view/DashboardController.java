@@ -212,12 +212,15 @@ public class DashboardController {
     public void InitGraphe(){
         clearGraphe();
         ArrayList<Earthquake> filteredData = new ArrayList<>(database.getFilteredData());
-        AddInGrapheLineChart(filteredData);
-        AddInGraphePieChart(filteredData);
-        AddInGrapheBarChart(filteredData);
-        AddInGrapheScatterChart(filteredData);
-        AddInGrapheBarChart2(filteredData);
-        AddInTableView(filteredData);
+        if(filteredData.isEmpty()){
+        }else{
+            AddInGrapheLineChart(filteredData);
+            AddInGraphePieChart(filteredData);
+            AddInGrapheBarChart(filteredData);
+            AddInGrapheScatterChart(filteredData);
+            AddInGrapheBarChart2(filteredData);
+            AddInTableView(filteredData);
+        }
     }
 
     public void clearGraphe(){
