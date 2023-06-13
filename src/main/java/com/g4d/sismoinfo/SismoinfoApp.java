@@ -26,6 +26,9 @@ public class SismoinfoApp extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader(SismoinfoApp.class.getResource("/com/g4d/sismoinfo/map.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), WINDOW_WIDTH,WINDOW_HEIGHT );
+        System.setProperty("javafx.platform", "desktop");
         Scene scene = ViewLoaders.getHomeView();
         stage.setTitle("Sismoinfo");
         stage.setScene(scene);

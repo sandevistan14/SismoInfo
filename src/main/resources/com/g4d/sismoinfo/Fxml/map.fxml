@@ -1,20 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.maps.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="448.0" prefWidth="529.0" stylesheets="@../Css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.MapController">
-    <top>
-        <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="689.0" styleClass="top-bar" BorderPane.alignment="CENTER">
-            <children>
-                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleViewChange" styleClass="top-button" text="Accueil" userData="home" />
-                <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleViewChange" styleClass="top-button" text="Carte" userData="map" />
-                <Button alignment="CENTER" contentDisplay="CENTER" layoutX="99.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleViewChange" styleClass="top-button" text="Tableau de Bord" userData="dashboard" />
-            </children>
-        </HBox>
-    </top>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
-   </center>
-   
-</BorderPane>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.g4d.sismoinfo.view.MapController">
+    <children>
+        <BorderPane prefHeight="448.0" prefWidth="529.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+            <top>
+                <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="689.0" styleClass="top-bar" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleViewChange" styleClass="top-button" text="Accueil" userData="home" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleViewChange" styleClass="top-button" text="Carte" userData="map" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="99.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleViewChange" styleClass="top-button" text="Tableau de Bord" userData="dashboard" />
+                    </children>
+                </HBox>
+            </top>
+            <center>
+                <MapView fx:id="mapView" />
+            </center>
+        </BorderPane>
+      <Button mnemonicParsing="false" onAction="#addEarthquakes" text="Rafraîchir données" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="10.0" />
+         </StackPane.margin>
+      </Button>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: white; -fx-opacity: 0.75;" StackPane.alignment="BOTTOM_LEFT">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+         <children>
+            <HBox prefHeight="36.0" prefWidth="250.0">
+               <children>
+                  <Label text="Identifiant :">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="idLabel">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="192.0" prefHeight="36.0" prefWidth="250.0">
+               <children>
+                  <Label text="Date :">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dateLabel">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="174.0" prefHeight="36.0" prefWidth="250.0">
+               <children>
+                  <Label text="Région :">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="regionLabel">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="228.0" prefHeight="36.0" prefWidth="250.0">
+               <children>
+                  <Label text="Intensité :">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="intensityLabel">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+    </children>
+</StackPane>

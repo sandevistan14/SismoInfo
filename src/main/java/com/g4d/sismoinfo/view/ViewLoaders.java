@@ -22,7 +22,7 @@ public class ViewLoaders {
     private final static double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
     private static Scene HomeView = createHomeview();
     private static Scene DashboardView = createDashboardview();
-    //private static Scene MapView = createMapview();
+    private static Scene MapView = createMapview();
 
     /**
      * This method creates and returns the Home view Scene.
@@ -32,7 +32,7 @@ public class ViewLoaders {
      * @throws RuntimeException If the FXML file cannot be loaded.
      */
     private static Scene createHomeview() {
-        FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/Fxml/home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/home.fxml"));
         Parent homeRoot = null;
         try {
             homeRoot = fxmlLoader.load();
@@ -62,17 +62,17 @@ public class ViewLoaders {
         return scene;
     }
 
-//    private static Scene createMapview() {
-//        FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/map.fxml"));
-//        Parent dashboardRoot = null;
-//        try {
-//            dashboardRoot = fxmlLoader.load();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        Scene scene = new Scene(dashboardRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
-//        return scene;
-//    }
+    private static Scene createMapview() {
+        FXMLLoader fxmlLoader = new FXMLLoader(ViewLoaders.class.getResource("/com/g4d/sismoinfo/map.fxml"));
+        Parent dashboardRoot = null;
+        try {
+            dashboardRoot = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scene scene = new Scene(dashboardRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
+        return scene;
+    }
 
     public static Scene getHomeView() {
         return HomeView;
@@ -82,9 +82,9 @@ public class ViewLoaders {
         return DashboardView;
     }
 
-//    public static Scene getMapView() {
-//        return MapView;
-//    }
+    public static Scene getMapView() {
+        return MapView;
+    }
 
     public static void loadView(ActionEvent event){
         Button sourceOfEvent = (Button) event.getSource();
@@ -93,8 +93,8 @@ public class ViewLoaders {
             Scene scene = ViewLoaders.getHomeView();
             stage.setScene(scene);
         } else if (sourceOfEvent.getUserData().equals("map")) {
-//            Scene scene = ViewLoaders.getMapView();
-//            stage.setScene(scene);
+            Scene scene = ViewLoaders.getMapView();
+            stage.setScene(scene);
         } else if (sourceOfEvent.getUserData().equals("dashboard")) {
             Scene scene = ViewLoaders.getDashboardView();
             stage.setScene(scene);
