@@ -12,14 +12,11 @@ import java.io.IOException;
 
 
 public class SismoinfoApp extends Application {
-    Screen screen = Screen.getPrimary();
-    Rectangle2D bounds = screen.getVisualBounds();
-    private final double WINDOW_WIDTH = bounds.getWidth(); // Largeur de la fenêtre
-    private final double WINDOW_HEIGHT = bounds.getHeight()-20; // Hauteur de la fenêtre
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(SismoinfoApp.class.getResource("/com/g4d/sismoinfo/home.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(SismoinfoApp.class.getResource("/com/g4d/sismoinfo/map.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load(), WINDOW_WIDTH,WINDOW_HEIGHT );
+        System.setProperty("javafx.platform", "desktop");
         Scene scene = ViewLoaders.getHomeView();
         stage.setTitle("Sismoinfo");
         stage.setScene(scene);
