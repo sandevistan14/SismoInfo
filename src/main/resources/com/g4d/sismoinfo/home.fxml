@@ -14,7 +14,7 @@
             </padding>
             <HBox fx:id="imageContainer" alignment="center" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <Button fx:id="insertButton" onAction="#csvButtonAction" text="Insérer un fichier CSV" />
-                <ImageView fx:id="imageView">
+                <ImageView fx:id="checkMarkView">
                     <Image requestedHeight="25" requestedWidth="25" url="@notValid.png" />
                 </ImageView>
             </HBox>
@@ -42,7 +42,7 @@
                 <RangeSlider fx:id="epicentralIntensitySlider" highValue="12.0" lowValue="2.0" majorTickUnit="2.0" max="12.0" min="2.0" minorTickCount="1" prefHeight="37.0" prefWidth="199.0" showTickLabels="true" showTickMarks="true" />
             </VBox>
             <HBox alignment="center" GridPane.columnIndex="0" GridPane.rowIndex="6">
-                <Button fx:id="search" onAction="#handleRechercherAction" text="Rechercher" />
+                <Button fx:id="search" onAction="#handleFiltersApplicationAction" text="Appliquer les filtres" />
             </HBox>
          <columnConstraints>
             <ColumnConstraints />

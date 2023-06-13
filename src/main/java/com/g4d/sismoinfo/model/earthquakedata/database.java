@@ -148,8 +148,8 @@ public class database {
      *
      * @param csvFile The CSV file containing earthquake data.
      */
-    public static void readCSV(File csvFile) {
-        if (csvFile == null) {return;}
+    public static boolean readCSV(File csvFile) {
+        if (csvFile == null) {return false;}
         CSVParser parser = null;
         try {
             parser = new CSVParser(new FileReader(csvFile), CSVFormat.DEFAULT.withHeader());
@@ -173,16 +173,14 @@ public class database {
                 String epicentralIntensityQuality = record.get("Qualité intensité épicentrale");
                 initialData.add(new Earthquake(id,date,hour,localisation,epicentralRegion,shock,xRGF93,yRGF93,latitude,longitude,epicentralIntensity,epicentralIntensityQuality));
             }
+            allRegions = initialData.stream()
+                    .map(Earthquake::getEpicentralRegion)
+                    .distinct()
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            allRegions.add(0,"");
+            return true;
         }
-        else {
-            // RENVOYER ERREUR
-        }
-        allRegions = initialData.stream()
-                .map(Earthquake::getEpicentralRegion)
-                .distinct()
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        for (String region : allRegions)
-            System.out.println(region);
+        return false;
     }
 
     /**
